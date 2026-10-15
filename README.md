@@ -31,5 +31,5 @@ Cloudflare Pages, Netlify and Vercel can deploy straight from this private GitHu
 
 - Page text: `index.html`. Each section is marked with a comment like `<!-- TEAM -->`.
 - Colors and fonts: the tokens at the top of `assets/styles.css`. The dark theme is the single `[data-theme="dark"]` line below them.
-- Workers, hero chat, autonomy levels and timesheet numbers: the `TEAM`, `CHAT`, `LEVELS` and `SHEET` lists at the top of `assets/main.js`. The page renders from these. Timesheet figures are labelled on the page as example data.
+- Workers, integrations strip, technology stack, hero chat, autonomy levels and timesheet numbers: the `TEAM`, `TOOLS`, `STACK`, `CHAT`, `LEVELS` and `SHEET` lists at the top of `assets/main.js`. The page renders from these. Timesheet figures are labelled on the page as example data.
 - Worker names should mean something tied to the job (Vani = voice, Nidhi = treasure, and so on), and each badge shows that meaning.

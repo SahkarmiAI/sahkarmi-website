@@ -16,13 +16,14 @@
   --line: 2px solid var(--ink);
   --shadow: 4px 4px 0 var(--ink);
   --r: 14px;
+  --ease: cubic-bezier(.2, .8, .2, 1);
   --display: 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
   --mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
 }
 /* Dark theme — set on <html> by the script in index.html */
 [data-theme="dark"] { --paper: #121212; --band: #1B1A17; --ink: #F2EDE3; --ink-2: #B8B2A6; --card: #1E1D1A; --ok: #5BD39A; color-scheme: dark; }
 /* Bright surfaces keep dark text in both themes */
-.btn, mark, .av, .phone-head, .chat .me, .badge header, .card-hot, .fit, .level-list .you, .pill, .steps li::before, .next li::before { color: #141414; }
+.btn, .av, .phone-head, .chat .me, .badge header, .card-hot, .fit, .level-list .you, .pill, .steps li::before, .next li::before { color: #141414; }
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 80px; }
@@ -33,6 +34,12 @@ a { color: inherit; }
 button, input, select, textarea { font: inherit; color: inherit; }
 :focus-visible { outline: 3px solid var(--saffron); outline-offset: 2px; }
 [hidden] { display: none !important; }
+/* Scroll effects (Chrome, Edge, Safari 26+; other browsers simply show everything) */
+@supports (animation-timeline: view()) {
+  .section h2, .card:not(.phone), .stats p { animation: rise linear both; animation-timeline: view(); animation-range: entry 0% entry 70%; }
+  .nav::after { content: ''; position: absolute; left: 0; right: 0; bottom: -2px; height: 3px; background: var(--saffron); transform-origin: left; animation: grow linear both; animation-timeline: scroll(root); }
+  @keyframes grow { from { transform: scaleX(0); } }
+}
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { animation: none !important; transition: none !important; } }
 
 /* ---------- Layout ---------- */
@@ -54,7 +61,6 @@ button, input, select, textarea { font: inherit; color: inherit; }
 h1 { font-size: clamp(44px, 7.4vw, 92px); line-height: .95; font-weight: 800; letter-spacing: -.035em; }
 h2 { font-size: clamp(32px, 4.6vw, 56px); line-height: 1; font-weight: 800; letter-spacing: -.03em; max-width: 18ch; }
 h3 { font-size: 20px; line-height: 1.2; font-weight: 600; }
-mark { background: var(--saffron); color: inherit; padding: 0 .12em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
 .tag, small { font: 500 12.5px/1.4 var(--mono); text-transform: uppercase; letter-spacing: .04em; }
 .tag { display: inline-block; margin-bottom: 18px; padding: 5px 10px; border: var(--line); border-radius: 99px; background: var(--paper); color: var(--ink); }
 .lede { font-size: clamp(17px, 1.7vw, 20px); color: var(--ink-2); max-width: 58ch; margin-top: 20px; }
@@ -94,7 +100,6 @@ mark { background: var(--saffron); color: inherit; padding: 0 .12em; box-decorat
 .hero { display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(40px, 6vw, 80px); align-items: center; padding-block: clamp(48px, 8vw, 104px); }
 .ctas { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
 .tools { margin-top: 32px; color: var(--ink-2); font-size: 15px; }
-.tools span { font: 500 12px var(--mono); text-transform: uppercase; margin-right: 6px; color: var(--ink); }
 .phone { padding: 0; overflow: hidden; max-width: 420px; justify-self: center; width: 100%; }
 .phone-head { display: flex; gap: 12px; align-items: center; padding: 14px 18px; border-bottom: var(--line); background: var(--mint); }
 .phone-head span { display: grid; line-height: 1.25; }
@@ -105,6 +110,30 @@ mark { background: var(--saffron); color: inherit; padding: 0 .12em; box-decorat
 .chat time { display: block; font: 500 11px var(--mono); opacity: .6; margin-top: 3px; text-align: right; }
 .phone-foot { padding: 10px 18px; border-top: var(--line); font: 500 12px var(--mono); text-transform: uppercase; }
 @keyframes pop { from { opacity: 0; transform: translateY(8px) scale(.97); } }
+.typing i { display: inline-block; width: 7px; height: 7px; margin: 0 2px; border-radius: 50%; background: currentColor; animation: blink 1s infinite; }
+.typing i:nth-child(2) { animation-delay: .15s; }
+.typing i:nth-child(3) { animation-delay: .3s; }
+@keyframes blink { 50% { opacity: .25; } }
+
+/* Headline: rises in, then the underline draws itself */
+.hero > div > *, .drawn { animation: rise .8s var(--ease) both; }
+.hero .lede { animation-delay: .15s; }
+.hero .ctas { animation-delay: .25s; }
+.hero .tools { animation-delay: .35s; }
+.drawn { display: inline-block; position: relative; animation-delay: .12s; }
+.drawn svg { position: absolute; left: 0; bottom: -.1em; width: 100%; height: .22em; overflow: visible; }
+.drawn path { fill: none; stroke: var(--saffron); stroke-width: 7; stroke-linecap: round; stroke-dasharray: 1; animation: draw 1s .7s var(--ease) both; }
+@keyframes rise { from { opacity: 0; transform: translateY(24px); } }
+@keyframes draw { from { stroke-dashoffset: 1; } }
+
+/* ---------- Integrations strip ---------- */
+.marquee { overflow: hidden; background: var(--ink); color: var(--paper); border-block: var(--line); }
+.track { display: flex; width: max-content; animation: slide 45s linear infinite; }
+.track span { padding: 14px 0 14px 28px; font-weight: 600; white-space: nowrap; }
+.track span::after { content: '✦'; margin-left: 28px; color: var(--saffron); }
+.marquee:hover .track { animation-play-state: paused; }
+@keyframes slide { to { transform: translateX(-50%); } }
+.stats { margin-top: clamp(40px, 6vw, 72px); }
 @media (max-width: 900px) { .hero { grid-template-columns: 1fr; } .chat { height: 360px; } }
 
 /* ---------- Stats ---------- */
@@ -115,7 +144,9 @@ mark { background: var(--saffron); color: inherit; padding: 0 .12em; box-decorat
 
 /* ---------- Team badges ---------- */
 .badges { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 22px; margin-top: 28px; }
-.badge { position: relative; display: flex; flex-direction: column; gap: 14px; padding-top: 30px; }
+.badge { position: relative; display: flex; flex-direction: column; gap: 14px; padding-top: 30px; transform-origin: 50% 0; transition: rotate .5s var(--ease), translate .5s var(--ease); }
+.badge:hover { rotate: -1.5deg; translate: 0 -4px; }   /* swings like an ID card on a lanyard */
+.badge:nth-child(even):hover { rotate: 1.5deg; }
 .badge::before { content: ''; position: absolute; top: 10px; left: 50%; width: 46px; height: 8px; margin-left: -23px; border: var(--line); border-radius: 99px; background: var(--paper); }
 .badge header { display: flex; gap: 14px; align-items: center; padding: 14px; margin: 0 -24px; border-block: var(--line); background: var(--c); }
 .badge .av { width: 56px; background: #fff; font-size: 22px; }
@@ -141,6 +172,19 @@ mark { background: var(--saffron); color: inherit; padding: 0 .12em; box-decorat
 .steps p { color: var(--ink-2); font-size: 15.5px; }
 .card-hot { background: var(--saffron); }
 .card-hot p { color: inherit; }
+
+/* ---------- Technology stack ---------- */
+.stack { display: grid; gap: 14px; margin-top: 40px; counter-reset: l; }
+.stack li { counter-increment: l; display: grid; grid-template-columns: 56px minmax(0, 1fr) minmax(0, 1.6fr); gap: 6px 20px; align-items: center; }
+.stack li::before { content: '0' counter(l); grid-row: span 2; font: 800 28px var(--display); color: var(--saffron); -webkit-text-stroke: 1.5px var(--ink); }
+.stack h3 { align-self: end; }
+.stack p:not(.parts) { align-self: start; color: var(--ink-2); font-size: 15.5px; grid-column: 2; }
+.parts { grid-column: 3; grid-row: 1 / span 2; display: flex; flex-wrap: wrap; gap: 8px; }
+.parts span { padding: 5px 11px; border: 1.5px solid var(--ink); border-radius: 99px; font-size: 14px; background: var(--paper); }
+@media (max-width: 760px) {
+  .stack li { grid-template-columns: 44px 1fr; }
+  .parts { grid-column: 1 / -1; grid-row: auto; margin-top: 8px; }
+}
 
 /* ---------- Timesheet ---------- */
 .sheet { margin-top: 36px; }

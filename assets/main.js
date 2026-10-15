@@ -11,13 +11,24 @@ const SITE = {
 /* ============================================================
    CONTENT DATA — edit text here, the page renders from it
    ============================================================ */
-const TEAM = [ // [name, meaning, role, department, color, duty, measured by, works in]
-  ['Vani', 'voice', 'Lead follow-up', 'Sales', 'saffron', 'Replies to every new lead within a minute, asks your qualifying questions and books the call.', 'First-reply time, calls booked', 'WhatsApp, Gmail, Meta Ads, IndiaMART, CRM'],
-  ['Disha', 'direction', 'Lead capture & routing', 'Sales', 'sky', 'Pulls leads from every source into one list, removes duplicates and sends each one to the right rep.', 'Leads captured, time to assignment', 'Zoho, HubSpot, LeadSquared, Sheets'],
-  ['Nidhi', 'treasure', 'Collections', 'Finance', 'mint', 'Sends polite payment reminders, shares payment links and confirms when money arrives.', 'Amount recovered, days to payment', 'Tally, Zoho Books, Razorpay, WhatsApp'],
-  ['Tula', 'balance', 'Invoice & GST reconciliation', 'Finance', 'peach', 'Matches invoices to purchase orders and bank entries, and flags GST mismatches before you file.', 'Invoices processed, mismatches caught', 'Tally, Zoho Books, Gmail, bank statements'],
-  ['Lekha', 'record', 'Document intake', 'Operations', 'pink', 'Turns forms, KYC and claim documents into clean records, and asks customers for anything missing.', 'Documents processed, accuracy', 'Email, WhatsApp, Google Drive'],
-  ['Smriti', 'memory', 'Reorders & distributors', 'Operations', 'lime', 'Remembers when each customer usually reorders, reminds them, and takes orders over WhatsApp in Hindi or English.', 'Reorders captured, revenue', 'WhatsApp, Sheets, Tally, order system']
+const TEAM = [ // [name, meaning, role, department, color, duty, measured by]
+  ['Vani', 'voice', 'Lead follow-up', 'Sales', 'saffron', 'Replies to every new lead within a minute, asks your qualifying questions and books the call.', 'First-reply time, calls booked'],
+  ['Disha', 'direction', 'Lead capture & routing', 'Sales', 'sky', 'Pulls leads from every source into one list, removes duplicates and sends each one to the right rep.', 'Leads captured, time to assignment'],
+  ['Nidhi', 'treasure', 'Collections', 'Finance', 'mint', 'Sends polite payment reminders, shares payment links and confirms when money arrives.', 'Amount recovered, days to payment'],
+  ['Tula', 'balance', 'Invoice & GST reconciliation', 'Finance', 'peach', 'Matches invoices to purchase orders and bank entries, and flags GST mismatches before you file.', 'Invoices processed, mismatches caught'],
+  ['Lekha', 'record', 'Document intake', 'Operations', 'pink', 'Turns forms, KYC and claim documents into clean records, and asks customers for anything missing.', 'Documents processed, accuracy'],
+  ['Smriti', 'memory', 'Reorders & distributors', 'Operations', 'lime', 'Remembers when each customer usually reorders, reminds them, and takes orders over WhatsApp in Hindi or English.', 'Reorders captured, revenue']
+];
+
+const TOOLS = ['WhatsApp', 'Email', 'Phone & SMS', 'CRMs', 'Accounting software', 'ERPs', 'Spreadsheets', 'Payment gateways', 'Marketplaces', 'Online stores', 'Calendars', 'Cloud drives', 'Internal databases', 'Legacy desktop software', 'Anything with an API'];
+
+const STACK = [ // [layer, what it does, building blocks]
+  ['Models', 'The best AI model for each step, chosen by your test results.', ['Claude', 'GPT', 'Gemini', 'Open-source models']],
+  ['Connections', 'Plugs into your systems the way your team does.', ['MCP', 'REST APIs & webhooks', 'WhatsApp Business Platform', 'Email & calendar', 'Browser automation for tools without an API']],
+  ['Knowledge', 'Answers from your own data, not the internet.', ['Retrieval over your documents (RAG)', 'Vector search', 'OCR & document AI']],
+  ['Workflows', 'Multi-step jobs that retry, wait and hand over.', ['Agent orchestration', 'Queues & schedules', 'Human approval steps']],
+  ['Testing', 'Checked before every change goes live.', ['Test suites from your past cases', 'Code checks + AI judges', 'Model upgrade regression runs']],
+  ['Monitoring & security', 'Watched and logged in production.', ['Step-by-step tracing', 'Cost & latency tracking', 'Alerts', 'Encryption', 'Least-privilege access', 'Audit logs']]
 ];
 
 const CHAT = [ // [who, text] — who: 'them' | 'me' | 'sys'
@@ -47,6 +58,7 @@ const SHEET = { // name: {kpis, log, seed, hand}
 
 /* ============================================================ */
 const $ = s => document.querySelector(s);
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const chips = (el, labels, onPick) => {   // renders a pressed-button group
   el.innerHTML = labels.map((l, i) => `<button type="button" aria-pressed="${!i}">${l}</button>`).join('');
   el.onclick = e => {
@@ -86,17 +98,42 @@ const addMsg = ([who, text], i) => {
 let ci = 0;
 const playChat = () => {
   if (ci === CHAT.length) { ci = 0; $('#chat').innerHTML = ''; }
-  addMsg(CHAT[ci], ci++);
-  setTimeout(playChat, ci === CHAT.length ? 5000 : 1600);
+  const msg = CHAT[ci], i = ci++;
+  if (msg[0] !== 'me') addMsg(msg, i);
+  else {   // show "typing…" dots before the worker's reply
+    $('#chat').insertAdjacentHTML('beforeend', '<li class="me typing" aria-hidden="true"><i></i><i></i><i></i></li>');
+    setTimeout(() => { $('#chat .typing')?.remove(); addMsg(msg, i); }, 900);
+  }
+  setTimeout(playChat, ci === CHAT.length ? 5000 : 1900);
 };
-matchMedia('(prefers-reduced-motion: reduce)').matches ? CHAT.forEach(addMsg) : playChat();
+reduced ? CHAT.forEach(addMsg) : playChat();
+
+/* Integrations strip — list twice so the loop is seamless */
+$('#track').innerHTML = TOOLS.concat(TOOLS).map(t => `<span>${t}</span>`).join('');
+
+/* Technology stack */
+$('#stackList').innerHTML = STACK.map(([layer, what, parts]) =>
+  `<li class="card"><h3>${layer}</h3><p>${what}</p><p class="parts">${parts.map(x => `<span>${x}</span>`).join('')}</p></li>`).join('');
+
+/* Stats count up once they scroll into view */
+if (!reduced) {
+  const io = new IntersectionObserver(([e]) => {
+    if (!e.isIntersecting) return;
+    io.disconnect();
+    document.querySelectorAll('.stats b').forEach(b => {
+      const [, n, suffix] = b.textContent.match(/(\d+)(.*)/);
+      for (let k = 1; k <= 30; k++) setTimeout(() => b.textContent = Math.round(n * k / 30) + suffix, k * 30);
+    });
+  });
+  io.observe($('.stats'));
+}
 
 /* Team badges + department filter */
-$('#badges').innerHTML = TEAM.map(([n, means, role, dept, c, duty, kpi, tools]) => `
+$('#badges').innerHTML = TEAM.map(([n, means, role, dept, c, duty, kpi]) => `
   <article class="card badge" data-dept="${dept}">
     <header style="--c:var(--${c})"><b class="av">${n[0]}</b><div><h3>${n} <i>“${means}”</i></h3><small>${role}</small></div></header>
     <p>${duty}</p>
-    <dl><dt>Measured by</dt><dd>${kpi}</dd><dt>Works in</dt><dd>${tools}</dd></dl>
+    <dl><dt>Measured by</dt><dd>${kpi}</dd></dl>
   </article>`).join('');
 chips($('#teamFilter'), ['All', 'Sales', 'Finance', 'Operations'], f =>
   document.querySelectorAll('.badge').forEach(card => card.hidden = f !== 'All' && card.dataset.dept !== f));

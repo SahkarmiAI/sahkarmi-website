@@ -27,8 +27,8 @@
     <a class="brand" href="#top"><img src="assets/favicon.svg" alt="" width="30" height="30">Karmik</a>
     <nav class="links" id="menu" aria-label="Main">
       <a href="#team">Workers</a>
-      <a href="#control">Control</a>
       <a href="#process">How it works</a>
+      <a href="#stack">Technology</a>
       <a href="#timesheet">Timesheet</a>
       <a href="#about">About</a>
       <a href="#faq">FAQ</a>
@@ -45,13 +45,13 @@
 <section class="hero wrap">
   <div>
     <p class="tag">AI workers · built and managed for you</p>
-    <h1>Hire an AI worker. <mark>We manage it.</mark></h1>
+    <h1>Hire an AI worker. <span class="drawn">We manage it.<svg viewBox="0 0 300 16" preserveAspectRatio="none" aria-hidden="true"><path d="M4 11C70 3 170 2 296 9" pathLength="1"/></svg></span></h1>
     <p class="lede">Pick one job your team never catches up on, like replying to leads, chasing payments or matching invoices. We build an AI worker to do it, test it on your own past cases and keep it running. You can see every action it takes.</p>
     <div class="ctas">
       <a class="btn" href="#contact">Book a 30-minute call</a>
       <a class="btn btn-alt" href="#team">Meet the workers</a>
     </div>
-    <p class="tools"><span>Works in</span> WhatsApp · Gmail · Tally · Zoho · IndiaMART · Meta Ads · HubSpot · Sheets</p>
+    <p class="tools">Works with the tools your team already uses. If it has an API, an inbox or a login screen, your worker can use it.</p>
   </div>
 
   <figure class="phone card" aria-label="Example WhatsApp conversation handled by Vani, a lead follow-up worker">
@@ -60,6 +60,9 @@
     <p class="phone-foot">Example conversation</p>
   </figure>
 </section>
+
+<!-- INTEGRATIONS (decorative strip; the hero line above says the same in words) -->
+<div class="marquee" aria-hidden="true"><div class="track" id="track"></div></div>
 
 <!-- STATS -->
 <section class="stats wrap" aria-label="Why AI projects stall">
@@ -103,6 +106,14 @@
     <li class="card card-hot"><small>Ongoing · Monthly</small><h3>On the job</h3><p>It goes live within your limits. We watch it, fix issues and re-test before every change.</p></li>
   </ol>
   <p class="note">The pilot is a fixed quote, sent after the first call. Each live worker then has a monthly fee, and for high-volume jobs part of it can be tied to results.</p>
+</section>
+
+<!-- TECHNOLOGY -->
+<section class="section wrap" id="stack">
+  <p class="tag">Technology</p>
+  <h2>What we build your worker with.</h2>
+  <p class="lede">Proven building blocks that can be swapped out. Nothing is locked to one vendor, so your worker improves as the technology does.</p>
+  <ol class="stack" id="stackList"></ol>
 </section>
 
 <!-- TIMESHEET -->
