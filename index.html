@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Karmik — Hire an AI worker. We manage it.</title>
+<meta name="description" content="Karmik builds AI workers for one real job in your business, such as replying to leads, chasing payments or matching invoices. Each one is tested on your own past cases and managed by us, and you see every action it takes.">
+<meta property="og:title" content="Karmik — Hire an AI worker. We manage it.">
+<meta property="og:description" content="AI workers for real jobs in your business. Tested on your own cases, managed by us, and every action visible to you.">
+<meta property="og:type" content="website">
+<meta name="author" content="Naivedya Tiwari">
+<meta name="theme-color" content="#FFFBF2">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<script>
+  // Theme: saved choice, else the device setting. Set before paint to avoid a flash.
+  try { document.documentElement.dataset.theme = localStorage.getItem('karmik-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); } catch (e) {}
+</script>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap row">
+    <a class="brand" href="#top"><img src="assets/favicon.svg" alt="" width="30" height="30">Karmik</a>
+    <nav class="links" id="menu" aria-label="Main">
+      <a href="#team">Workers</a>
+      <a href="#control">Control</a>
+      <a href="#process">How it works</a>
+      <a href="#timesheet">Timesheet</a>
+      <a href="#about">About</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn-sm" href="#contact">Book a call</a>
+    <button class="icon-btn" id="themeBtn" type="button" aria-label="Switch light or dark theme">◐</button>
+    <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu">☰</button>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="hero wrap">
+  <div>
+    <p class="tag">AI workers · built and managed for you</p>
+    <h1>Hire an AI worker. <mark>We manage it.</mark></h1>
+    <p class="lede">Pick one job your team never catches up on, like replying to leads, chasing payments or matching invoices. We build an AI worker to do it, test it on your own past cases and keep it running. You can see every action it takes.</p>
+    <div class="ctas">
+      <a class="btn" href="#contact">Book a 30-minute call</a>
+      <a class="btn btn-alt" href="#team">Meet the workers</a>
+    </div>
+    <p class="tools"><span>Works in</span> WhatsApp · Gmail · Tally · Zoho · IndiaMART · Meta Ads · HubSpot · Sheets</p>
+  </div>
+
+  <figure class="phone card" aria-label="Example WhatsApp conversation handled by Vani, a lead follow-up worker">
+    <figcaption class="phone-head"><b class="av" style="--c:var(--saffron)">V</b><span><b>Vani</b><small>Lead follow-up · Karmik worker</small></span></figcaption>
+    <ol class="chat" id="chat" aria-live="off"></ol>
+    <p class="phone-foot">Example conversation</p>
+  </figure>
+</section>
+
+<!-- STATS -->
+<section class="stats wrap" aria-label="Why AI projects stall">
+  <p><b>11%</b> of agentic AI use cases reached production last year. <small>Camunda, 2026</small></p>
+  <p><b>2×</b> more often, AI built with a specialist partner succeeds. <small>MIT NANDA, 2025</small></p>
+  <p><b>40%+</b> of agentic AI projects are expected to be cancelled by 2027. <small>Gartner, 2025</small></p>
+</section>
+
+<!-- TEAM -->
+<section class="section wrap" id="team">
+  <p class="tag">The team</p>
+  <h2>Six workers, ready to start.</h2>
+  <p class="lede">Each worker arrives about 80% built. We spend the pilot on the last 20%: your rules, your tools and your tone of voice.</p>
+  <div class="chips" id="teamFilter" role="group" aria-label="Filter workers by department"></div>
+  <div class="badges" id="badges"></div>
+  <p class="note">Need someone else on the team? We build custom workers too. <a href="#contact">Describe the job →</a></p>
+</section>
+
+<!-- CONTROL -->
+<section class="section band" id="control">
+  <div class="wrap">
+    <p class="tag">You stay in control</p>
+    <h2>You decide how much it does alone.</h2>
+    <p class="lede">Most clients start at level 1 and move up as the worker earns trust. Here's what each level looks like for Nidhi, our collections worker.</p>
+    <div class="ladder card">
+      <div class="chips" id="levels" role="group" aria-label="Choose an autonomy level"></div>
+      <p class="level-sum" id="levelSum"></p>
+      <ul class="level-list" id="levelList"></ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="section wrap" id="process">
+  <p class="tag">How it works</p>
+  <h2>Hired like a person. Checked like software.</h2>
+  <ol class="steps">
+    <li class="card"><small>Week 1 · Pilot</small><h3>Write the job description</h3><p>We sit with the people who do the job today, map it step by step and agree on targets.</p></li>
+    <li class="card"><small>Weeks 2–3 · Pilot</small><h3>Set it up</h3><p>We start from the worker's template and connect it to your tools. Nothing reaches a customer yet.</p></li>
+    <li class="card"><small>Weeks 3–4 · Pilot</small><h3>Trial on your past cases</h3><p>It handles hundreds of real past cases. You read the report and decide whether it goes live.</p></li>
+    <li class="card card-hot"><small>Ongoing · Monthly</small><h3>On the job</h3><p>It goes live within your limits. We watch it, fix issues and re-test before every change.</p></li>
+  </ol>
+  <p class="note">The pilot is a fixed quote, sent after the first call. Each live worker then has a monthly fee, and for high-volume jobs part of it can be tied to results.</p>
+</section>
+
+<!-- TIMESHEET -->
+<section class="section band" id="timesheet">
+  <div class="wrap">
+    <p class="tag">The timesheet</p>
+    <h2>Every worker reports its day to you.</h2>
+    <p class="lede">Every client gets a dashboard showing results, every action, and test scores from before any change goes live. The numbers below are examples.</p>
+    <div class="sheet card">
+      <div class="chips" id="sheetTabs" role="group" aria-label="Choose an example worker"></div>
+      <div class="kpis" id="kpis"></div>
+      <div class="sheet-grid">
+        <div class="panel"><h3>Last 14 days</h3><svg id="chart" viewBox="0 0 640 220" role="img" aria-label="Daily tasks: handled by the worker versus handed to a person"></svg><p class="legend"><span><i></i>Handled by worker</span><span><i class="hand"></i>Handed to your team</span></p></div>
+        <div class="panel"><h3>Activity log</h3><ul class="log" id="log"></ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="section wrap">
+  <p class="tag">Reliability</p>
+  <h2>Built for day 100, not just the demo.</h2>
+  <div class="grid4">
+    <div class="card"><h3>Tested on your cases</h3><p>Every worker must pass a test set built from your past work, before launch and after every change. Every mistake becomes a new test.</p></div>
+    <div class="card"><h3>Model upgrades on evidence</h3><p>New AI models run on your cases first. Your worker only switches if the results hold up or improve.</p></div>
+    <div class="card"><h3>Full audit trail</h3><p>Every message sent and every record changed is logged, so you can always see what happened and why.</p></div>
+    <div class="card"><h3>Your data stays yours</h3><p>We use AI providers only on business terms that don't train on your data. Each worker gets only the access it needs, and our setup is designed with India's DPDP Act in mind.</p></div>
+  </div>
+</section>
+
+<!-- FIT -->
+<section class="section wrap">
+  <p class="tag">Is your job a good fit?</p>
+  <h2>Not every job should go to an AI worker.</h2>
+  <div class="grid2">
+    <div class="card fit"><h3>✓ A good fit</h3><ul><li>It happens many times a week</li><li>It follows rules your team could write down</li><li>It lives in tools we can connect</li><li>You have past examples we can test on</li></ul></div>
+    <div class="card fit fit-no"><h3>✕ Not a fit yet</h3><ul><li>Every case needs a senior person's judgement</li><li>It comes up only a few times a month</li><li>There are no past records to test against</li><li>It would have to approve payments or legal decisions on its own</li></ul></div>
+  </div>
+</section>
+
+<!-- ENGINEERING -->
+<section class="section ink" id="engineering">
+  <div class="wrap">
+    <p class="tag">For teams building AI</p>
+    <h2>Building your own agents? We help get them into production.</h2>
+    <div class="grid4">
+      <div><h3>Production builds</h3><p>From a scoped use case to an agent handling real traffic, with retries, handover and audit logs designed in.</p></div>
+      <div><h3>Evaluation suites</h3><p>Test sets built from real cases, scored for accuracy, tone, policy and handover, and run on every change.</p></div>
+      <div><h3>Model upgrade testing</h3><p>Current and candidate models compared on your cases for quality, cost and latency.</p></div>
+      <div><h3>Pilot rescue</h3><p>For pilots that stalled after the demo. We find where they fail and rebuild the weak parts.</p></div>
+    </div>
+    <a class="btn" href="#contact" data-enquiry="engineering">Talk to an engineer</a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section wrap" id="about">
+  <div class="founder card">
+    <b class="av av-lg" style="--c:var(--mint)">NT</b>
+    <div>
+      <p class="tag">About Karmik</p>
+      <h2>You work with the founder, not an account manager.</h2>
+      <p>Hi, I'm Naivedya Tiwari, founder and CEO of Karmik. I build products, and my work has always focused on the gap between what a product promises and what people actually experience.</p>
+      <p>AI workers have the same gap. They look great in a demo and then fall apart on real inputs. I started Karmik to close it. Every worker is tested on your own cases, and I hold each one to a simple standard: would I trust it with my own business? You talk to me directly, from the first call through every monthly review.</p>
+      <a class="link" id="linkedin" href="#" target="_blank" rel="noopener" hidden>LinkedIn ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section wrap narrow" id="faq">
+  <p class="tag">FAQ</p>
+  <h2>Questions owners ask us.</h2>
+  <div class="faq">
+    <details><summary>Why not just use ChatGPT or Claude ourselves?</summary><p>For one-off tasks, you should. A worker runs every day without being asked, works inside your systems, follows your rules, hands over to people when it should, and is tested and monitored. Setting that up and keeping it working is our job.</p></details>
+    <details><summary>What if the worker makes a mistake?</summary><p>Risky actions need your approval. Any mistake shows up on the timesheet. We fix the cause, add the case to the worker's tests and re-test before the fix goes live.</p></details>
+    <details><summary>What does it cost?</summary><p>A fixed price for the pilot, quoted after the first call, then a monthly fee for each live worker. For high-volume jobs, part of the fee can be tied to results.</p></details>
+    <details><summary>How long until we see results?</summary><p>About four weeks to a worker tested on your own cases. Lead replies show the difference within days of going live. Collections take a full payment cycle to measure.</p></details>
+    <details><summary>Does it replace our team?</summary><p>No. It takes the repetitive part of the job off their plate and hands them the cases that need a person, with the full context attached.</p></details>
+    <details><summary>What if the pilot shows it won't work?</summary><p>You'll know before anything goes live, because the trial runs on your past cases. You keep the test report, which shows exactly where the job is hard to automate.</p></details>
+    <details><summary>Do we need technical staff?</summary><p>No. We need a few hours from someone who knows the job well, during the first week and during testing.</p></details>
+    <details><summary>Which AI models do you use?</summary><p>Whichever performs best on your tests, usually from Anthropic or OpenAI, under business terms. Because every worker is tested, we can change the model without changing how it behaves for you.</p></details>
+    <details><summary>Do you work outside India?</summary><p>Yes. We work remotely with teams anywhere.</p></details>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section band" id="contact">
+  <div class="wrap grid2">
+    <div>
+      <p class="tag">Book a call</p>
+      <h2>Which job do you wish someone would just handle?</h2>
+      <ol class="next">
+        <li>We reply within one working day.</li>
+        <li>You speak with Naivedya for 30 minutes about the job and your tools.</li>
+        <li>You get a short proposal and a fixed pilot quote.</li>
+      </ol>
+      <a class="btn btn-alt" id="booking" href="#" target="_blank" rel="noopener" hidden>Pick a time on the calendar ↗</a>
+      <p class="note">Prefer email? <b id="email"></b> <button class="copy" id="copy" type="button">Copy</button></p>
+    </div>
+
+    <form class="form card" id="form">
+      <input class="hp" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <label>Your name<input name="name" autocomplete="name" required minlength="2"></label>
+      <label>Company<input name="company" autocomplete="organization" required minlength="2"></label>
+      <label>Work email<input name="email" type="email" autocomplete="email" required></label>
+      <label>Phone or WhatsApp <small>optional</small><input name="phone" type="tel" autocomplete="tel"></label>
+      <label class="full">What are you looking for?
+        <select name="track" id="track">
+          <option value="worker">An AI worker for a job in my business</option>
+          <option value="engineering">Help building or testing our own AI agents</option>
+          <option value="unsure">Not sure yet</option>
+        </select>
+      </label>
+      <label class="full">Describe the job<textarea name="message" rows="4" required minlength="10" placeholder="For example: we get about 200 leads a month from Meta ads and IndiaMART, and it takes our team a day or more to reply."></textarea></label>
+      <button class="btn full" type="submit">Send enquiry</button>
+      <p class="status full" id="status" role="status"></p>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer wrap">
+  <p><b>Karmik</b> · AI workers, built and managed for you. Founded by Naivedya Tiwari.</p>
+  <p>© <span id="year"></span> Karmik · Sources: <a href="https://www.thisandthat.chat/blog/ai-agent-adoption-statistics/" target="_blank" rel="noopener">Camunda</a>, <a href="https://fortune.com/2025/08/18/mit-report-95-percent-generative-ai-pilots-at-companies-failing-cfo" target="_blank" rel="noopener">MIT NANDA</a>, <a href="https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027" target="_blank" rel="noopener">Gartner</a></p>
+</footer>
+
+<script src="assets/main.js"></script>
+</body>
+</html>
