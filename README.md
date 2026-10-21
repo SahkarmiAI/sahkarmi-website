@@ -1,4 +1,4 @@
-# Karmik website
+# Sahkarmi website
 
 A static website: plain HTML, CSS and JavaScript. No build step, no server code.
 
@@ -11,13 +11,13 @@ assets/favicon.svg  browser tab icon
 
 ## Before you go live
 
-1. **Contact email.** Open `assets/main.js` and change `contactEmail` in `SITE` at the top to your real address (for example the Google Workspace address on your domain).
+1. **Contact email.** `contactEmail` in `SITE` at the top of `assets/main.js` is set to `hello@sahkarmi.ai`. Create that mailbox (e.g. Google Workspace on the domain) or change it.
 2. **Enquiry form.** The form needs somewhere to send messages:
    - Create a free form at [formspree.io](https://formspree.io) (or Basin, Getform, or a Google Apps Script endpoint).
    - Paste its endpoint into `formEndpoint` in `assets/main.js`, e.g. `'https://formspree.io/f/abcdwxyz'`.
    - Until you do this, the form shows your email address instead of sending.
 3. **Optional links.** Add `bookingUrl` (calendar booking page) and `founderLinkedIn` in `SITE`. Each stays hidden until filled in.
-4. **Name check.** "Karmik" sounds the same as Karmick Solutions Pvt Ltd, an existing Indian IT company. Search the trademark registries (India, WIPO, USPTO) before printing anything with the name. The name appears in `index.html` (title, nav, footer) and in the `karmik-theme` storage key in the scripts.
+4. **Domain and name.** The site is built for `sahkarmi.ai`. Before printing anything with the name, search the trademark registries (India, WIPO, USPTO) for "Sahkarmi". The name appears in `index.html` (title, nav, footer) and in the `sahkarmi-theme` storage key.
 
 ## Put it online (any one of these)
 
@@ -31,5 +31,5 @@ Cloudflare Pages, Netlify and Vercel can deploy straight from this private GitHu
 
 - Page text: `index.html`. Each section is marked with a comment like `<!-- TEAM -->`.
 - Colors and fonts: the tokens at the top of `assets/styles.css`. The dark theme is the single `[data-theme="dark"]` line below them.
-- Workers, integrations strip, technology stack, hero chat, autonomy levels and timesheet numbers: the `TEAM`, `TOOLS`, `STACK`, `CHAT`, `LEVELS` and `SHEET` lists at the top of `assets/main.js`. The page renders from these. Timesheet figures are labelled on the page as example data.
-- Worker names should mean something tied to the job (Vani = voice, Nidhi = treasure, and so on), and each badge shows that meaning.
+- Workers, Hisaab's steps, integrations strip, technology stack, hero run log, autonomy levels and timesheet numbers: the `TEAM`, `LOOP`, `TOOLS`, `STACK`, `RUN`, `LEVELS` and `SHEET` lists at the top of `assets/main.js`. The page renders from these. Timesheet figures are labelled on the page as example data.
+- Worker names should mean something tied to the job (Hisaab = the accounts, Nidhi = treasure, and so on), and each badge shows that meaning.

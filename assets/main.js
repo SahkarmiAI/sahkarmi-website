@@ -2,7 +2,7 @@
    SITE SETTINGS — fill these in before you go live
    ============================================================ */
 const SITE = {
-  contactEmail: 'hello@your-domain.com',
+  contactEmail: 'hello@sahkarmi.ai',
   formEndpoint: '',      // e.g. 'https://formspree.io/f/abcdwxyz'. Empty = show email instead of sending.
   bookingUrl: '',        // Optional calendar booking link. Empty = button hidden.
   founderLinkedIn: ''    // Optional LinkedIn URL. Empty = link hidden.
@@ -11,49 +11,58 @@ const SITE = {
 /* ============================================================
    CONTENT DATA — edit text here, the page renders from it
    ============================================================ */
-const TEAM = [ // [name, meaning, role, department, color, duty, measured by]
-  ['Vani', 'voice', 'Lead follow-up', 'Sales', 'saffron', 'Replies to every new lead within a minute, asks your qualifying questions and books the call.', 'First-reply time, calls booked'],
-  ['Disha', 'direction', 'Lead capture & routing', 'Sales', 'sky', 'Pulls leads from every source into one list, removes duplicates and sends each one to the right rep.', 'Leads captured, time to assignment'],
-  ['Nidhi', 'treasure', 'Collections', 'Finance', 'mint', 'Sends polite payment reminders, shares payment links and confirms when money arrives.', 'Amount recovered, days to payment'],
-  ['Tula', 'balance', 'Invoice & GST reconciliation', 'Finance', 'peach', 'Matches invoices to purchase orders and bank entries, and flags GST mismatches before you file.', 'Invoices processed, mismatches caught'],
-  ['Lekha', 'record', 'Document intake', 'Operations', 'pink', 'Turns forms, KYC and claim documents into clean records, and asks customers for anything missing.', 'Documents processed, accuracy'],
-  ['Smriti', 'memory', 'Reorders & distributors', 'Operations', 'lime', 'Remembers when each customer usually reorders, reminds them, and takes orders over WhatsApp in Hindi or English.', 'Reorders captured, revenue']
+const TEAM = [ // [name, meaning, role, department, color, duty, measured by] — the first one is our first product
+  ['Hisaab', 'the accounts', 'AI spend auditor', 'Engineering', 'saffron', 'Reads AI usage and spend every day, attributes every dollar, finds waste, investigates spikes and proves each fix on your past requests.', 'Dollars saved, spend attributed'],
+  ['Tula', 'balance', 'Invoice & GST reconciliation', 'Finance', 'peach', 'Every night, matches invoices to purchase orders and bank entries, investigates each mismatch and flags GST issues before you file.', 'Invoices matched, mismatches caught'],
+  ['Nidhi', 'treasure', 'Cash & collections', 'Finance', 'mint', 'Each morning, matches bank receipts to open invoices, works out what is overdue and why, and queues follow-ups for your approval.', 'Days to payment, cash recovered'],
+  ['Lekha', 'record', 'Document processing', 'Operations', 'pink', 'Processes every incoming form, KYC or claim file: extracts the data, cross-checks it against your records and flags anything inconsistent.', 'Documents processed, errors caught'],
+  ['Smriti', 'memory', 'Contract & renewal watch', 'Operations', 'lime', 'Reads every vendor contract, tracks renewal and notice dates, compares price with actual usage and warns you weeks before auto-renewals.', 'Renewals caught, money saved'],
+  ['Prahari', 'sentinel', 'Compliance watch', 'Operations', 'sky', 'Tracks statutory deadlines (GST, TDS, PF), checks filings and source data for gaps, and escalates before a penalty is due.', 'Deadlines met, gaps found']
 ];
 
-const TOOLS = ['WhatsApp', 'Email', 'Phone & SMS', 'CRMs', 'Accounting software', 'ERPs', 'Spreadsheets', 'Payment gateways', 'Marketplaces', 'Online stores', 'Calendars', 'Cloud drives', 'Internal databases', 'Legacy desktop software', 'Anything with an API'];
+const LOOP = [ // Hisaab's daily loop: [step, detail]
+  ['Read', 'OpenAI and Anthropic usage APIs, SSO logs, card and expense exports, cloud bills.'],
+  ['Attribute', 'Every dollar mapped to a team, project and feature.'],
+  ['Find waste', 'Unused seats, overlapping tools, cost spikes and runaway agents.'],
+  ['Investigate', 'Works out why each spike happened: a prompt change, a loop, a new feature.'],
+  ['Prove the fix', 'Tests a cheaper model, trimmed context or a usage cap on your own past requests, with quality shown before and after.'],
+  ['You approve', 'Findings, dollars saved and every action land on the dashboard. Nothing changes without your yes.']
+];
+
+const TOOLS = ['AI usage APIs', 'SSO & identity logs', 'Cloud bills', 'Card & expense exports', 'Bank feeds', 'Accounting software', 'ERPs', 'CRMs', 'Email', 'Spreadsheets', 'Cloud drives', 'Internal databases', 'Legacy desktop software', 'Anything with an API'];
 
 const STACK = [ // [layer, what it does, building blocks]
   ['Models', 'The best AI model for each step, chosen by your test results.', ['Claude', 'GPT', 'Gemini', 'Open-source models']],
-  ['Connections', 'Plugs into your systems the way your team does.', ['MCP', 'REST APIs & webhooks', 'WhatsApp Business Platform', 'Email & calendar', 'Browser automation for tools without an API']],
-  ['Knowledge', 'Answers from your own data, not the internet.', ['Retrieval over your documents (RAG)', 'Vector search', 'OCR & document AI']],
+  ['Connections', 'Plugs into your systems the way your team does.', ['MCP', 'REST APIs & webhooks', 'Usage & billing APIs', 'Email & calendar', 'Browser automation for tools without an API']],
+  ['Knowledge', 'Works from your own data, not the internet.', ['Retrieval over your documents (RAG)', 'Vector search', 'OCR & document AI']],
   ['Workflows', 'Multi-step jobs that retry, wait and hand over.', ['Agent orchestration', 'Queues & schedules', 'Human approval steps']],
   ['Testing', 'Checked before every change goes live.', ['Test suites from your past cases', 'Code checks + AI judges', 'Model upgrade regression runs']],
   ['Monitoring & security', 'Watched and logged in production.', ['Step-by-step tracing', 'Cost & latency tracking', 'Alerts', 'Encryption', 'Least-privilege access', 'Audit logs']]
 ];
 
-const CHAT = [ // [who, text] — who: 'them' | 'me' | 'sys'
-  ['them', 'Hi, saw your ad. Bulk rate for 50 RO purifiers?'],
-  ['me', 'Namaste Priya! For 50 units our dealer price starts at ₹7,450 per unit. Which city should we deliver to?'],
-  ['them', 'Pune. Kal call ho sakta hai?'],
-  ['me', 'Bilkul. Rohit from our sales team is free tomorrow at 11:30 AM or 4 PM. Which works?'],
-  ['them', '4 baje'],
-  ['me', 'Done ✓ Call booked with Rohit for tomorrow at 4 PM. Invite sent here and on email.'],
-  ['sys', 'Replied in 38 sec · logged in CRM · Rohit notified']
+const RUN = [ // hero run log: [time, text, pill style, pill label]; 'ask' = approval buttons
+  ['06:00', 'Daily run started. Pulled usage from OpenAI, Anthropic, AWS and the expense export'],
+  ['06:02', 'Attributed $48,210 (month to date) to 14 teams and 31 projects', '', 'Done'],
+  ['06:03', '23 ChatGPT seats unused for 60+ days: $690/month', 'warn', 'Waste'],
+  ['06:04', 'Support-bot spend up 312% since Oct 14', 'warn', 'Spike'],
+  ['06:06', 'Why: an Oct 14 prompt change sends the full ticket history on every call (4k → 19k tokens)', '', 'Cause'],
+  ['06:09', 'Tested fix (keep last 5 messages) on 1,200 past requests: quality 99.0% vs 99.2% before', '', 'Proven'],
+  ['06:10', 'Saves $6,400/month. Waiting for your approval', 'ask']
 ];
 
 const LEVELS = [ // [name, summary, [[owner, step]...]]
-  ['1 · Drafts', 'Nidhi drafts. Your team approves every message.', [['Nidhi', 'Writes each payment reminder'], ['You', 'Approve or edit before it is sent'], ['Nidhi', 'Sends it and logs the reply']]],
-  ['2 · Acts, asks on exceptions', 'Nidhi handles routine cases. Exceptions come to you.', [['Nidhi', 'Sends routine reminders on schedule'], ['Nidhi', 'Confirms payments and updates Tally'], ['You', 'Handle disputes and accounts 60+ days overdue']]],
-  ['3 · Autopilot', 'Nidhi runs the whole job within your rules.', [['Nidhi', 'Runs reminders, follow-ups and receipts end to end'], ['Nidhi', 'Pauses itself when a customer disputes'], ['You', 'Read the weekly report on the timesheet']]]
+  ['1 · Reports', 'Hisaab finds and explains. You decide everything.', [['Hisaab', 'Runs the daily audit and investigates every spike'], ['Hisaab', 'Writes up each finding with the dollars at stake'], ['You', 'Decide what to change and make the change']]],
+  ['2 · Proposes tested fixes', 'Hisaab proves each fix. You approve each one.', [['Hisaab', 'Tests every fix on your own past requests'], ['You', 'Approve or reject each fix on the dashboard'], ['Hisaab', 'Applies approved fixes and tracks the savings']]],
+  ['3 · Autopilot within limits', 'Hisaab applies the fix types you pre-approve.', [['Hisaab', 'Removes seats unused for 60+ days and caps runaway agents'], ['Hisaab', 'Still asks before switching models or changing prompts'], ['You', 'Review the weekly savings report']]]
 ];
 
 const SHEET = { // name: {kpis, log, seed, hand}
-  Vani: { seed: 11, hand: .08, kpis: [['First reply', '47 sec', 'was 6.5 hours'], ['Leads contacted', '1,682', '+18% this month'], ['Calls booked', '214', '+31% this month'], ['Test pass rate', '97%', '250 past cases']],
-    log: [['10:42', 'Replied to a Meta ad lead in Hindi', '', 'Done'], ['10:39', 'Booked a demo with Kapoor Enterprises', '', 'Booked'], ['10:31', 'Custom pricing request sent to sales', 'warn', 'To team'], ['10:24', 'Reminded Rohit about an untouched lead', '', 'Nudged'], ['10:18', 'WhatsApp failed, sent by email', 'bad', 'Retried']] },
-  Nidhi: { seed: 23, hand: .12, kpis: [['Recovered', '₹38.6L', '+22% this month'], ['Days to payment', '31', 'was 47'], ['Reminders sent', '1,104', '+9% this month'], ['Test pass rate', '97%', '250 past cases']],
-    log: [['10:44', 'Reminder to Gupta Traders, due in 3 days', '', 'Done'], ['10:37', 'Confirmed ₹48,200 received, updated Tally', '', 'Matched'], ['10:30', 'Account 62 days overdue sent to owner', 'warn', 'To team'], ['10:12', 'Customer disputed amount, reminders paused', 'warn', 'To team'], ['10:03', 'Bank entry not found yet, will re-check', 'bad', 'Retrying']] },
-  Tula: { seed: 47, hand: .06, kpis: [['Time per invoice', '2.4 min', 'was 18 min'], ['Invoices processed', '2,318', '+14% this month'], ['Mismatches caught', '73', '₹4.1L checked'], ['Test pass rate', '98%', '250 past cases']],
-    log: [['10:46', 'Entered INV-2304 from supplier email', '', 'Done'], ['10:40', 'Matched 14 invoices to purchase orders', '', 'Matched'], ['10:33', 'GSTIN mismatch on INV-2291 flagged', 'warn', 'To team'], ['10:25', 'Unreadable scan, asked supplier to resend', 'bad', 'Retrying'], ['10:16', 'Blocked a duplicate invoice', '', 'Done']] }
+  Hisaab: { seed: 11, hand: .1, kpis: [['Spend tracked', '$48.2K', 'month to date'], ['Attributed', '100%', '14 teams, 31 projects'], ['Waste found', '$9.1K/mo', '7 findings'], ['Saved', '$7.0K/mo', '6 of 7 fixes approved']],
+    log: [['06:10', 'Context-trim fix approved: saves $6,400/mo', '', 'Approved'], ['06:09', 'Fix tested on 1,200 past requests, quality held', '', 'Proven'], ['06:06', 'Spike traced to Oct 14 prompt change', 'warn', 'Cause'], ['06:03', '23 unused ChatGPT seats flagged', 'warn', 'Waste'], ['06:02', 'Two teams pay for overlapping transcription tools', 'warn', 'Overlap']] },
+  Tula: { seed: 47, hand: .06, kpis: [['Time per invoice', '2.4 min', 'was 18 min'], ['Invoices matched', '2,318', '+14% this month'], ['Mismatches caught', '73', '₹4.1L checked'], ['Test pass rate', '98%', '250 past cases']],
+    log: [['02:46', 'Entered INV-2304 from supplier email', '', 'Done'], ['02:40', 'Matched 14 invoices to purchase orders', '', 'Matched'], ['02:33', 'GSTIN mismatch on INV-2291 flagged', 'warn', 'To you'], ['02:25', 'Unreadable scan, asked supplier to resend', 'bad', 'Retrying'], ['02:16', 'Blocked a duplicate invoice', '', 'Done']] },
+  Nidhi: { seed: 23, hand: .12, kpis: [['Cash matched', '₹38.6L', 'this month'], ['Days to payment', '31', 'was 47'], ['Follow-ups queued', '312', 'each approved by you'], ['Test pass rate', '97%', '250 past cases']],
+    log: [['07:44', 'Matched ₹48,200 receipt to INV-2291', '', 'Matched'], ['07:37', '14 invoices overdue, follow-ups queued', 'warn', 'To you'], ['07:30', 'Gupta Traders disputed amount, paused', 'warn', 'To you'], ['07:12', 'Bank entry not found yet, will re-check', 'bad', 'Retrying'], ['07:03', 'Morning run: bank feed and Tally synced', '', 'Done']] }
 };
 
 /* ============================================================ */
@@ -77,7 +86,7 @@ $('#email').textContent = SITE.contactEmail;
 /* Theme toggle (initial theme is set in index.html) */
 $('#themeBtn').onclick = () => {
   const t = document.documentElement.dataset.theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-  try { localStorage.setItem('karmik-theme', t); } catch {}
+  try { localStorage.setItem('sahkarmi-theme', t); } catch {}
 };
 
 /* Mobile menu */
@@ -87,26 +96,29 @@ $('#menu').onclick = () => { $('#menu').classList.remove('open'); $('#menuBtn').
 /* Links that preset the enquiry type */
 document.querySelectorAll('[data-enquiry]').forEach(a => a.onclick = () => $('#track').value = a.dataset.enquiry);
 
-/* Hero chat — types out message by message, then loops (shown all at once if motion is reduced) */
-const addMsg = ([who, text], i) => {
-  const li = document.createElement('li');
-  li.className = who;
-  li.textContent = text;
-  if (who !== 'sys') li.insertAdjacentHTML('beforeend', `<time>10:0${i + 2} AM</time>`);
-  $('#chat').append(li);
+/* Hero run log — steps appear one by one with "working" dots; the last step waits for Approve / Reject */
+const addRun = ([t, txt, cls = '', lab]) => $('#run').insertAdjacentHTML('beforeend', `<li><time>${t}</time><span>${txt}</span>${
+  cls === 'ask' ? '<span class="ask"><button type="button" value="yes">Approve</button><button type="button">Reject</button></span>' : lab ? `<span class="pill ${cls}">${lab}</span>` : ''}</li>`);
+let ri = 0, runTimer;
+const playRun = () => {
+  if (ri === RUN.length) { ri = 0; $('#run').innerHTML = ''; }
+  $('#run .typing')?.remove();
+  addRun(RUN[ri++]);
+  if (ri < RUN.length) $('#run').insertAdjacentHTML('beforeend', '<li class="typing" aria-hidden="true"><i></i><i></i><i></i></li>');
+  runTimer = setTimeout(playRun, ri < RUN.length ? 1500 : 9000);   // after the last step, wait for a click (or restart)
 };
-let ci = 0;
-const playChat = () => {
-  if (ci === CHAT.length) { ci = 0; $('#chat').innerHTML = ''; }
-  const msg = CHAT[ci], i = ci++;
-  if (msg[0] !== 'me') addMsg(msg, i);
-  else {   // show "typing…" dots before the worker's reply
-    $('#chat').insertAdjacentHTML('beforeend', '<li class="me typing" aria-hidden="true"><i></i><i></i><i></i></li>');
-    setTimeout(() => { $('#chat .typing')?.remove(); addMsg(msg, i); }, 900);
-  }
-  setTimeout(playChat, ci === CHAT.length ? 5000 : 1900);
+$('#run').onclick = e => {
+  const b = e.target.closest('button'); if (!b) return;
+  const yes = b.value === 'yes';
+  b.parentElement.outerHTML = `<span class="pill ${yes ? '' : 'bad'}">${yes ? 'Approved' : 'Rejected'}</span>`;
+  addRun(['06:11', yes ? 'Fix scheduled for tonight. Logged on the dashboard.' : 'Fix rejected. Hisaab will keep watching this spend.']);
+  clearTimeout(runTimer);
+  if (!reduced) runTimer = setTimeout(playRun, 4000);
 };
-reduced ? CHAT.forEach(addMsg) : playChat();
+reduced ? RUN.forEach(addRun) : playRun();
+
+/* Hisaab's loop */
+$('#loop').innerHTML = LOOP.map(([h, p], i) => `<li class="card${i === LOOP.length - 1 ? ' card-hot' : ''}"><h3>${h}</h3><p>${p}</p></li>`).join('');
 
 /* Integrations strip — list twice so the loop is seamless */
 $('#track').innerHTML = TOOLS.concat(TOOLS).map(t => `<span>${t}</span>`).join('');
@@ -129,13 +141,13 @@ if (!reduced) {
 }
 
 /* Team badges + department filter */
-$('#badges').innerHTML = TEAM.map(([n, means, role, dept, c, duty, kpi]) => `
+$('#badges').innerHTML = TEAM.map(([n, means, role, dept, c, duty, kpi], i) => `
   <article class="card badge" data-dept="${dept}">
-    <header style="--c:var(--${c})"><b class="av">${n[0]}</b><div><h3>${n} <i>“${means}”</i></h3><small>${role}</small></div></header>
+    <header style="--c:var(--${c})"><b class="av">${n[0]}</b><div><h3>${n} <i>“${means}”</i></h3><small>${role}</small></div>${i ? '' : '<span class="pill first">First product</span>'}</header>
     <p>${duty}</p>
     <dl><dt>Measured by</dt><dd>${kpi}</dd></dl>
   </article>`).join('');
-chips($('#teamFilter'), ['All', 'Sales', 'Finance', 'Operations'], f =>
+chips($('#teamFilter'), ['All', 'Engineering', 'Finance', 'Operations'], f =>
   document.querySelectorAll('.badge').forEach(card => card.hidden = f !== 'All' && card.dataset.dept !== f));
 
 /* Autonomy ladder */

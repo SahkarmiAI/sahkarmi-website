@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Karmik — Hire an AI worker. We manage it.</title>
-<meta name="description" content="Karmik builds AI workers for one real job in your business, such as replying to leads, chasing payments or matching invoices. Each one is tested on your own past cases and managed by us, and you see every action it takes.">
-<meta property="og:title" content="Karmik — Hire an AI worker. We manage it.">
-<meta property="og:description" content="AI workers for real jobs in your business. Tested on your own cases, managed by us, and every action visible to you.">
+<title>Sahkarmi — Hire an AI worker. We manage it.</title>
+<meta name="description" content="Sahkarmi builds AI workers that run one real job every day, such as auditing AI spend, reconciling invoices or checking documents. Each one investigates what is wrong, proves every fix on your own past data and asks before it acts.">
+<meta property="og:title" content="Sahkarmi — Hire an AI worker. We manage it.">
+<meta property="og:description" content="AI workers that run real jobs every day. They investigate, prove each fix on your own data, and act only with your approval.">
 <meta property="og:type" content="website">
 <meta name="author" content="Naivedya Tiwari">
 <meta name="theme-color" content="#FFFBF2">
@@ -17,19 +17,19 @@
 <link rel="stylesheet" href="assets/styles.css">
 <script>
   // Theme: saved choice, else the device setting. Set before paint to avoid a flash.
-  try { document.documentElement.dataset.theme = localStorage.getItem('karmik-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); } catch (e) {}
+  try { document.documentElement.dataset.theme = localStorage.getItem('sahkarmi-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); } catch (e) {}
 </script>
 </head>
 <body>
 
 <header class="nav">
   <div class="wrap row">
-    <a class="brand" href="#top"><img src="assets/favicon.svg" alt="" width="30" height="30">Karmik</a>
+    <a class="brand" href="#top"><img src="assets/favicon.svg" alt="" width="30" height="30">Sahkarmi</a>
     <nav class="links" id="menu" aria-label="Main">
+      <a href="#hisaab">Hisaab</a>
       <a href="#team">Workers</a>
       <a href="#process">How it works</a>
       <a href="#stack">Technology</a>
-      <a href="#timesheet">Timesheet</a>
       <a href="#about">About</a>
       <a href="#faq">FAQ</a>
     </nav>
@@ -46,18 +46,18 @@
   <div>
     <p class="tag">AI workers · built and managed for you</p>
     <h1>Hire an AI worker. <span class="drawn">We manage it.<svg viewBox="0 0 300 16" preserveAspectRatio="none" aria-hidden="true"><path d="M4 11C70 3 170 2 296 9" pathLength="1"/></svg></span></h1>
-    <p class="lede">Pick one job your team never catches up on, like replying to leads, chasing payments or matching invoices. We build an AI worker to do it, test it on your own past cases and keep it running. You can see every action it takes.</p>
+    <p class="lede">Pick a job that has to be done every day, like auditing spend, reconciling invoices or checking documents. We build an AI worker that runs it on schedule, investigates what is wrong, tests every fix on your own past data and asks you before it acts.</p>
     <div class="ctas">
       <a class="btn" href="#contact">Book a 30-minute call</a>
-      <a class="btn btn-alt" href="#team">Meet the workers</a>
+      <a class="btn btn-alt" href="#hisaab">Meet Hisaab</a>
     </div>
     <p class="tools">Works with the tools your team already uses. If it has an API, an inbox or a login screen, your worker can use it.</p>
   </div>
 
-  <figure class="phone card" aria-label="Example WhatsApp conversation handled by Vani, a lead follow-up worker">
-    <figcaption class="phone-head"><b class="av" style="--c:var(--saffron)">V</b><span><b>Vani</b><small>Lead follow-up · Karmik worker</small></span></figcaption>
-    <ol class="chat" id="chat" aria-live="off"></ol>
-    <p class="phone-foot">Example conversation</p>
+  <figure class="run card" aria-label="Example daily run by Hisaab, the AI spend auditor">
+    <figcaption class="run-head"><b class="av" style="--c:var(--saffron)">H</b><span><b>Hisaab</b><small>AI spend auditor · daily run</small></span></figcaption>
+    <ol class="log runlog" id="run" aria-live="off"></ol>
+    <p class="run-foot">Example run · try approving the fix</p>
   </figure>
 </section>
 
@@ -71,11 +71,20 @@
   <p><b>40%+</b> of agentic AI projects are expected to be cancelled by 2027. <small>Gartner, 2025</small></p>
 </section>
 
+<!-- FIRST PRODUCT -->
+<section class="section wrap" id="hisaab">
+  <p class="tag">Our first worker</p>
+  <h2>Hisaab finds where your AI money goes, and proves every fix.</h2>
+  <p class="lede">Hisaab (हिसाब, "the accounts") reads your AI usage and spend every day, attributes every dollar to a team or project, finds waste and works out why each spike happened. Before recommending any fix, it tests that fix on your own past requests to prove quality holds. You approve every change.</p>
+  <ol class="steps" id="loop"></ol>
+  <p class="note"><a href="#contact" data-enquiry="hisaab">Get early access to Hisaab →</a></p>
+</section>
+
 <!-- TEAM -->
 <section class="section wrap" id="team">
   <p class="tag">The team</p>
-  <h2>Six workers, ready to start.</h2>
-  <p class="lede">Each worker arrives about 80% built. We spend the pilot on the last 20%: your rules, your tools and your tone of voice.</p>
+  <h2>Workers that run your back office.</h2>
+  <p class="lede">Each one runs a job on schedule, investigates what is wrong and asks before it acts. Hisaab is our first. The others show the kind of daily jobs we build.</p>
   <div class="chips" id="teamFilter" role="group" aria-label="Filter workers by department"></div>
   <div class="badges" id="badges"></div>
   <p class="note">Need someone else on the team? We build custom workers too. <a href="#contact">Describe the job →</a></p>
@@ -86,7 +95,7 @@
   <div class="wrap">
     <p class="tag">You stay in control</p>
     <h2>You decide how much it does alone.</h2>
-    <p class="lede">Most clients start at level 1 and move up as the worker earns trust. Here's what each level looks like for Nidhi, our collections worker.</p>
+    <p class="lede">Most clients start at level 1 and move up as the worker earns trust. Here's what each level looks like for Hisaab.</p>
     <div class="ladder card">
       <div class="chips" id="levels" role="group" aria-label="Choose an autonomy level"></div>
       <p class="level-sum" id="levelSum"></p>
@@ -101,7 +110,7 @@
   <h2>Hired like a person. Checked like software.</h2>
   <ol class="steps">
     <li class="card"><small>Week 1 · Pilot</small><h3>Write the job description</h3><p>We sit with the people who do the job today, map it step by step and agree on targets.</p></li>
-    <li class="card"><small>Weeks 2–3 · Pilot</small><h3>Set it up</h3><p>We start from the worker's template and connect it to your tools. Nothing reaches a customer yet.</p></li>
+    <li class="card"><small>Weeks 2–3 · Pilot</small><h3>Set it up</h3><p>We start from the worker's template and connect it to your tools. Nothing changes in your systems yet.</p></li>
     <li class="card"><small>Weeks 3–4 · Pilot</small><h3>Trial on your past cases</h3><p>It handles hundreds of real past cases. You read the report and decide whether it goes live.</p></li>
     <li class="card card-hot"><small>Ongoing · Monthly</small><h3>On the job</h3><p>It goes live within your limits. We watch it, fix issues and re-test before every change.</p></li>
   </ol>
@@ -126,7 +135,7 @@
       <div class="chips" id="sheetTabs" role="group" aria-label="Choose an example worker"></div>
       <div class="kpis" id="kpis"></div>
       <div class="sheet-grid">
-        <div class="panel"><h3>Last 14 days</h3><svg id="chart" viewBox="0 0 640 220" role="img" aria-label="Daily tasks: handled by the worker versus handed to a person"></svg><p class="legend"><span><i></i>Handled by worker</span><span><i class="hand"></i>Handed to your team</span></p></div>
+        <div class="panel"><h3>Last 14 days</h3><svg id="chart" viewBox="0 0 640 220" role="img" aria-label="Daily tasks: done by the worker versus sent to you for approval"></svg><p class="legend"><span><i></i>Done by worker</span><span><i class="hand"></i>Sent to you for approval</span></p></div>
         <div class="panel"><h3>Activity log</h3><ul class="log" id="log"></ul></div>
       </div>
     </div>
@@ -175,10 +184,10 @@
   <div class="founder card">
     <b class="av av-lg" style="--c:var(--mint)">NT</b>
     <div>
-      <p class="tag">About Karmik</p>
+      <p class="tag">About Sahkarmi</p>
       <h2>You work with the founder, not an account manager.</h2>
-      <p>Hi, I'm Naivedya Tiwari, founder and CEO of Karmik. I build products, and my work has always focused on the gap between what a product promises and what people actually experience.</p>
-      <p>AI workers have the same gap. They look great in a demo and then fall apart on real inputs. I started Karmik to close it. Every worker is tested on your own cases, and I hold each one to a simple standard: would I trust it with my own business? You talk to me directly, from the first call through every monthly review.</p>
+      <p>Hi, I'm Naivedya Tiwari, founder and CEO of Sahkarmi. I build products, and my work has always focused on the gap between what a product promises and what people actually experience.</p>
+      <p>AI workers have the same gap. They look great in a demo and then fall apart on real inputs. I started Sahkarmi to close it. Every worker is tested on your own cases, and I hold each one to a simple standard: would I trust it with my own business? You talk to me directly, from the first call through every monthly review.</p>
       <a class="link" id="linkedin" href="#" target="_blank" rel="noopener" hidden>LinkedIn ↗</a>
     </div>
   </div>
@@ -225,6 +234,7 @@
       <label class="full">What are you looking for?
         <select name="track" id="track">
           <option value="worker">An AI worker for a job in my business</option>
+          <option value="hisaab">Hisaab: audit our AI spend</option>
           <option value="engineering">Help building or testing our own AI agents</option>
           <option value="unsure">Not sure yet</option>
         </select>
@@ -239,8 +249,8 @@
 </main>
 
 <footer class="footer wrap">
-  <p><b>Karmik</b> · AI workers, built and managed for you. Founded by Naivedya Tiwari.</p>
-  <p>© <span id="year"></span> Karmik · Sources: <a href="https://www.thisandthat.chat/blog/ai-agent-adoption-statistics/" target="_blank" rel="noopener">Camunda</a>, <a href="https://fortune.com/2025/08/18/mit-report-95-percent-generative-ai-pilots-at-companies-failing-cfo" target="_blank" rel="noopener">MIT NANDA</a>, <a href="https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027" target="_blank" rel="noopener">Gartner</a></p>
+  <p><b>Sahkarmi</b> · AI workers, built and managed for you. Founded by Naivedya Tiwari.</p>
+  <p>© <span id="year"></span> Sahkarmi · Sources: <a href="https://www.thisandthat.chat/blog/ai-agent-adoption-statistics/" target="_blank" rel="noopener">Camunda</a>, <a href="https://fortune.com/2025/08/18/mit-report-95-percent-generative-ai-pilots-at-companies-failing-cfo" target="_blank" rel="noopener">MIT NANDA</a>, <a href="https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027" target="_blank" rel="noopener">Gartner</a></p>
 </footer>
 
 <script src="assets/main.js"></script>
