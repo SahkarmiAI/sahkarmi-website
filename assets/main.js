@@ -83,7 +83,7 @@ if (window.gsap) {
   const fine = matchMedia('(pointer: fine)').matches;
   gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
     // One orchestrated entrance: the note's headline rises line by line
-    document.fonts.ready.then(() => {
+    Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 600))]).then(() => { // don't hold the headline for slow fonts
       const split = new SplitText('.hero h1', { type: 'lines', mask: 'lines' });
       reveal();
       gsap.timeline({ defaults: { ease: 'expo.out' }, onComplete: () => split.revert() }) // plain text again, so it re-wraps on resize

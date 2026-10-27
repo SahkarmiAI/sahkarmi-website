@@ -3,13 +3,13 @@
    each support charge that reaches Hisaab turns mint and pools as savings instead of leaking away.
    Listens for 'spot', 'approved' and 'theme' from main.js. */
 import * as THREE from 'three';
-import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
-import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
-import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
-import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
 const stage = document.querySelector('.stage'), cv = document.getElementById('flow');
 const still = matchMedia('(prefers-reduced-motion: reduce)').matches, phone = () => innerWidth <= 720;
+const touch = !matchMedia('(pointer: fine)').matches; // no mouse to tilt the scene, so it turns on its own
+// Bloom only on larger screens: phones skip ten module downloads and most of the GPU work
+const post = phone() ? null : await Promise.all(['EffectComposer', 'RenderPass', 'UnrealBloomPass', 'OutputPass']
+  .map(n => import(`three/addons/postprocessing/${n}.js`))).catch(() => null);
 const V = (x, y, z) => new THREE.Vector3(x, y, z);
 
 // World layout (y is up). [label, position, share of spend]
@@ -38,15 +38,19 @@ function start() {
 
   const scene = new THREE.Scene(), camera = new THREE.PerspectiveCamera(38, 1, .1, 60), world = new THREE.Group();
   camera.position.set(0, 0, 7.5); scene.add(world);
-  const composer = new EffectComposer(renderer), bloom = new UnrealBloomPass(new THREE.Vector2(1, 1), .55, .35, .05);
-  composer.addPass(new RenderPass(scene, camera)); composer.addPass(bloom); composer.addPass(new OutputPass());
+  let composer, bloom;
+  if (post) {
+    const [{ EffectComposer }, { RenderPass }, { UnrealBloomPass }, { OutputPass }] = post;
+    composer = new EffectComposer(renderer); bloom = new UnrealBloomPass(new THREE.Vector2(1, 1), .55, .35, .05);
+    composer.addPass(new RenderPass(scene, camera)); composer.addPass(bloom); composer.addPass(new OutputPass());
+  }
 
   // Particles: positions computed on the CPU from the route tables; a soft round glow in the shader
   const N = phone() ? 1200 : 2400;
   const pts = Array.from({ length: N }, () => {
     const s = pick(SRC), t = pick(TEAM), r = Math.random();
     const kind = t === 0 && r < .3 ? 'support' : s === 3 && r < .45 ? 'seats' : t > 0 && r < .07 ? 'tools' : '';
-    return { s, t, kind, out: kind === 'support' ? LEAKR : OUT[t], u: Math.random(), v: .00004 + Math.random() * .00005, a0: Math.random() * 6.283, tw: (Math.random() - .5) * 7, rad: Math.sqrt(Math.random()), al: 0, c: -1 };
+    return { s, t, kind, out: kind === 'support' ? LEAKR : OUT[t], u: Math.random(), v: (.00004 + Math.random() * .00005) * (phone() ? 1.6 : 1), a0: Math.random() * 6.283, tw: (Math.random() - .5) * 7, rad: Math.sqrt(Math.random()), al: 0, c: -1 };
   });
   const geo = new THREE.BufferGeometry();
   const P = new Float32Array(N * 3), C = new Float32Array(N * 3), A = new Float32Array(N), S = Float32Array.from(pts, () => .7 + Math.random() * 1.1);
@@ -57,7 +61,9 @@ function start() {
     vertexShader: `attribute vec3 aColor; attribute float aAlpha, aSize; uniform float uScale, uBoost; varying vec3 vC; varying float vA;
       void main() { vC = aColor; vA = aAlpha; vec4 mv = modelViewMatrix * vec4(position, 1.); gl_PointSize = aSize * uBoost * uScale / -mv.z; gl_Position = projectionMatrix * mv; }`,
     fragmentShader: `varying vec3 vC; varying float vA;
-      void main() { float d = length(gl_PointCoord - .5), a = smoothstep(.5, .0, d); gl_FragColor = vec4(vC, a * a * vA); }`
+      void main() { float d = length(gl_PointCoord - .5), a = smoothstep(.5, .0, d); gl_FragColor = vec4(vC, a * a * vA);
+      #include <colorspace_fragment>
+      }`
   });
   const points = new THREE.Points(geo, mat); points.frustumCulled = false; world.add(points);
 
@@ -91,12 +97,13 @@ function start() {
     nodeMat.color.set(col.quiet); hubMat.color.set(col.blue); poolMat.color.set(col.mint);
     lineMat.color.set(col.blue); leakLine.color.set(col.ember); poolLine.color.set(col.mint);
     mat.blending = dark ? THREE.AdditiveBlending : THREE.NormalBlending; mat.needsUpdate = true;
-    bloom.enabled = dark; mat.uniforms.uBoost.value = dark ? 1 : 2.2; pts.forEach(p => p.c = -1);
+    if (bloom) bloom.enabled = dark;
+    mat.uniforms.uBoost.value = dark ? (bloom ? 1 : 1.25) : (bloom ? 2.2 : 1.6); pts.forEach(p => p.c = -1);
   };
   const size = () => {
     W = stage.clientWidth; H = stage.clientHeight;
     const pr = Math.min(devicePixelRatio || 1, phone() ? 1.5 : 2);
-    renderer.setPixelRatio(pr); renderer.setSize(W, H, false); composer.setPixelRatio(pr); composer.setSize(W, H);
+    renderer.setPixelRatio(pr); renderer.setSize(W, H, false); composer?.setPixelRatio(pr); composer?.setSize(W, H);
     camera.aspect = W / H; camera.updateProjectionMatrix();
     // Fit the scene between two screen fractions: right of the headline on wide screens, above it on phones
     const halfH = Math.tan(THREE.MathUtils.degToRad(19)) * 7.5, halfW = halfH * camera.aspect, hero = document.querySelector('.hero').getBoundingClientRect();
@@ -124,19 +131,20 @@ function start() {
       const first = p.u < .5, k = first ? p.u * 2 : p.u * 2 - 1;
       at(first ? IN[p.s] : p.out, k, p, i * 3);
       const ends = p.out === LEAKR && !first ? 1 - k : 1;
-      A[i] = p.al += ((lit(p) ? (dark ? .75 : 1) : .07) * ends - p.al) * .08;
+      A[i] = p.al += ((lit(p) ? (dark && bloom ? .75 : .95) : .07) * ends - p.al) * .08;
       const c = p.kind === 'support' ? (p.out === POOLR && !first ? 2 : 1) : p.kind ? 1 : 0;
       if (c !== p.c) { p.c = c; RGB[c].toArray(C, i * 3); geo.attributes.aColor.needsUpdate = true; }
     });
     geo.attributes.position.needsUpdate = geo.attributes.aAlpha.needsUpdate = true;
 
     rx += (my * .12 - rx) * .05; ry += (mx * .3 - ry) * .05;
-    world.rotation.set(rx, ry - scroll * .25 + Math.sin(now / 9000) * .06, 0);
+    const sway = touch && !still ? [Math.sin(now / 3300) * .12, Math.sin(now / 2400) * .45] : [0, Math.sin(now / 9000) * .06];
+    world.rotation.set(rx + sway[0], ry + sway[1] - scroll * .25, 0);
     world.position.y = baseY + scroll * .6 * world.scale.x; camera.position.z = 7.5 - scroll * .8;
     ringA.rotation.z = now / 2600; ringB.rotation.z = -now / 3400; arc.rotation.z = now / 700;
     poolMat.opacity = savedK; poolLine.opacity = savedK * .14; leakLine.opacity = (1 - savedK) * .14;
     pool.scale.setScalar(1 + savedK * .15 + Math.sin(now / 500) * .02 * savedK);
-    composer.render();
+    composer ? composer.render() : renderer.render(scene, camera);
 
     labels.forEach(({ el, at: w }) => {
       tmp.copy(w).applyMatrix4(world.matrixWorld).project(camera);

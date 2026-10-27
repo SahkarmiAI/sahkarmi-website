@@ -74,7 +74,7 @@ b { font-weight: 400; }
 .hero { min-height: calc(100svh - 4.5rem); display: flex; flex-direction: column; justify-content: center; max-width: 33rem; padding-block: 3rem; }
 .context { color: var(--quiet); font-size: 1rem; max-width: 30rem; margin-bottom: 2.5rem; }
 .date { color: var(--blue); margin-bottom: .75rem; }
-.hero h1 { font-size: clamp(2.2rem, 1.3rem + 3.2vw, 3.9rem); line-height: 1.1; letter-spacing: -.015em; margin-bottom: 1.25rem; }
+.hero h1 { font-size: clamp(2.1rem, 1.25rem + 2.9vw, 3.5rem); line-height: 1.1; letter-spacing: -.015em; margin-bottom: 1.25rem; }
 .sign { color: var(--quiet); margin-bottom: 2.5rem; }
 .ctas { display: flex; flex-wrap: wrap; gap: .75rem; }
 

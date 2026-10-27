@@ -12,8 +12,10 @@
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300;8..60,400&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@300&display=swap&text=%E0%A4%95%E0%A4%96%E0%A4%A4%E0%A4%A7%E0%A4%A8%E0%A4%AA%E0%A4%AC%E0%A4%AE%E0%A4%B0%E0%A4%B2%E0%A4%B8%E0%A4%B9%E0%A4%BE%E0%A4%BF%E0%A5%80%E0%A5%81%E0%A5%83%E0%A5%87%E0%A5%8D" rel="stylesheet">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js">
+<!-- Fonts load without blocking the first paint (media swaps to "all" once loaded) -->
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@300;400&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<link media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@300&display=swap&text=%E0%A4%95%E0%A4%96%E0%A4%A4%E0%A4%A7%E0%A4%A8%E0%A4%AA%E0%A4%AC%E0%A4%AE%E0%A4%B0%E0%A4%B2%E0%A4%B8%E0%A4%B9%E0%A4%BE%E0%A4%BF%E0%A5%80%E0%A5%81%E0%A5%83%E0%A5%87%E0%A5%8D" rel="stylesheet">
 <link rel="stylesheet" href="assets/styles.css">
 <script>
   try { document.documentElement.dataset.theme = localStorage.getItem('sahkarmi-theme') || 'dark'; } catch (e) { document.documentElement.dataset.theme = 'dark'; }
