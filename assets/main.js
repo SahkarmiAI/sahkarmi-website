@@ -1,6 +1,6 @@
 /* Site settings: fill these in before going live. Empty links stay hidden. */
 const SITE = {
-  contactEmail: 'hello@sahkarmi.ai',
+  contactEmail: 'ai@sahkarmi.ai',
   formEndpoint: '',    // e.g. 'https://formspree.io/f/abcdwxyz'. Empty = the form points people to the email instead.
   bookingUrl: '',      // calendar booking page
   founderLinkedIn: ''

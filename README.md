@@ -12,7 +12,7 @@ assets/favicon.svg  browser tab icon
 
 ## Before you go live
 
-1. **Contact email.** `contactEmail` in `SITE` at the top of `assets/main.js` is set to `hello@sahkarmi.ai`. Create that mailbox (e.g. Google Workspace on the domain) or change it.
+1. **Contact email.** `contactEmail` in `SITE` at the top of `assets/main.js` is set to `ai@sahkarmi.ai`. Create that mailbox (e.g. Google Workspace on the domain) or change it.
 2. **Enquiry form.** The form needs somewhere to send messages:
    - Create a free form at [formspree.io](https://formspree.io) (or Basin, Getform, or a Google Apps Script endpoint).
    - Paste its endpoint into `formEndpoint` in `assets/main.js`, e.g. `'https://formspree.io/f/abcdwxyz'`.
