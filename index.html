@@ -3,256 +3,202 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Sahkarmi — Hire an AI worker. We manage it.</title>
-<meta name="description" content="Sahkarmi builds AI workers that run one real job every day, such as auditing AI spend, reconciling invoices or checking documents. Each one investigates what is wrong, proves every fix on your own past data and asks before it acts.">
-<meta property="og:title" content="Sahkarmi — Hire an AI worker. We manage it.">
-<meta property="og:description" content="AI workers that run real jobs every day. They investigate, prove each fix on your own data, and act only with your approval.">
+<title>Sahkarmi: AI workers that report to you every morning</title>
+<meta name="description" content="Sahkarmi builds AI workers that do one real job every day. The first, Hisaab, audits your AI spend, traces every spike, tests each fix on your own past requests and changes nothing without your approval.">
+<meta property="og:title" content="Sahkarmi: AI workers that report to you every morning">
+<meta property="og:description" content="Hisaab audits your AI spend every day, proves each fix on your own requests and asks before it acts.">
 <meta property="og:type" content="website">
 <meta name="author" content="Naivedya Tiwari">
-<meta name="theme-color" content="#FFFBF2">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300;8..60,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@300&display=swap&text=%E0%A4%95%E0%A4%96%E0%A4%A4%E0%A4%A7%E0%A4%A8%E0%A4%AA%E0%A4%AC%E0%A4%AE%E0%A4%B0%E0%A4%B2%E0%A4%B8%E0%A4%B9%E0%A4%BE%E0%A4%BF%E0%A5%80%E0%A5%81%E0%A5%83%E0%A5%87%E0%A5%8D" rel="stylesheet">
 <link rel="stylesheet" href="assets/styles.css">
 <script>
-  // Theme: saved choice, else the device setting. Set before paint to avoid a flash.
-  try { document.documentElement.dataset.theme = localStorage.getItem('sahkarmi-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); } catch (e) {}
+  try { document.documentElement.dataset.theme = localStorage.getItem('sahkarmi-theme') || 'dark'; } catch (e) { document.documentElement.dataset.theme = 'dark'; }
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('intro'); // hero waits for its reveal (main.js)
 </script>
 </head>
 <body>
-
-<header class="nav">
-  <div class="wrap row">
-    <a class="brand" href="#top"><img src="assets/favicon.svg" alt="" width="30" height="30">Sahkarmi</a>
-    <nav class="links" id="menu" aria-label="Main">
-      <a href="#hisaab">Hisaab</a>
-      <a href="#team">Workers</a>
-      <a href="#process">How it works</a>
-      <a href="#stack">Technology</a>
-      <a href="#about">About</a>
-      <a href="#faq">FAQ</a>
-    </nav>
-    <a class="btn btn-sm" href="#contact">Book a call</a>
-    <button class="icon-btn" id="themeBtn" type="button" aria-label="Switch light or dark theme">◐</button>
-    <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu">☰</button>
-  </div>
+<a class="skip" href="#note">Skip to the note</a>
+<header class="bar">
+  <a class="mark" href="#top"><i aria-hidden="true"></i>Sahkarmi</a>
+  <nav aria-label="Main"><a href="#workers">Workers</a><a href="#how">How we work</a><a href="#about">About</a></nav>
+  <button class="theme" id="theme" type="button" aria-label="Dark theme"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7.5"/><path d="M10 2.5a7.5 7.5 0 0 1 0 15z"/></svg></button>
+  <a class="btn" href="#talk">Talk to Naivedya</a>
+  <i class="progress" aria-hidden="true"></i>
 </header>
 
 <main id="top">
-
-<!-- HERO -->
-<section class="hero wrap">
-  <div>
-    <p class="tag">AI workers · built and managed for you</p>
-    <h1>Hire an AI worker. <span class="drawn">We manage it.<svg viewBox="0 0 300 16" preserveAspectRatio="none" aria-hidden="true"><path d="M4 11C70 3 170 2 296 9" pathLength="1"/></svg></span></h1>
-    <p class="lede">Pick a job that has to be done every day, like auditing spend, reconciling invoices or checking documents. We build an AI worker that runs it on schedule, investigates what is wrong, tests every fix on your own past data and asks you before it acts.</p>
-    <div class="ctas">
-      <a class="btn" href="#contact">Book a 30-minute call</a>
-      <a class="btn btn-alt" href="#hisaab">Meet Hisaab</a>
+<!-- THE NOTE: the flow of AI spend stays pinned behind while the note scrolls over it -->
+<section class="note" id="hisaab">
+  <div class="sky" aria-hidden="true"><div class="stage"><canvas id="flow"></canvas></div></div>
+  <div class="wrap">
+    <div class="hero">
+      <p class="context">Sahkarmi builds AI workers that each do one real job, every day. This is this morning's note from the first one.</p>
+      <p class="date"><time id="today"></time>, 06:10</p>
+      <h1>Good morning. You spent $1,642 on AI yesterday. I know where every dollar went, and $242 of it was wasted.</h1>
+      <p class="sign">Hisaab (<span lang="hi">हिसाब</span>), your AI spend worker</p>
+      <p class="ctas"><a class="btn magnet" href="#talk">Talk to Naivedya</a> <a class="btn ghost" href="#note">See what it found</a></p>
     </div>
-    <p class="tools">Works with the tools your team already uses. If it has an API, an inbox or a login screen, your worker can use it.</p>
+
+    <article class="panel letter" id="note" aria-label="What Hisaab found">
+      <ol class="finds">
+        <li data-focus="seats"><details><summary><time>06:02</time><span class="what">23 ChatGPT seats nobody has opened in 60 days</span><span class="amt">$690 a month</span></summary>
+          <div class="why"><p>Nine belong to people who have left. The other fourteen were bought for a pilot that ended in August. Each seat can be removed from the dashboard with one click.</p></div></details></li>
+        <li data-focus="support" id="spike"><details open><summary><time>06:04</time><span class="what">The support bot has cost 312% more since 14 October</span><span class="amt">$6,400 a month</span></summary>
+          <div class="why">
+            <p>On 14 October a prompt change began sending the whole ticket history with every call.</p>
+            <figure class="bars">
+              <p><span>Before 14 Oct</span><i style="--w:.24"></i><span>3,100</span></p>
+              <p class="now"><span>Now</span><i style="--w:1"></i><span>12,800</span></p>
+              <p class="fix"><span>With the fix</span><i style="--w:.27"></i><span>3,400</span></p>
+              <figcaption>Average tokens sent per support request</figcaption>
+            </figure>
+            <p>I tried sending only the last five messages instead, and replayed that on 1,200 of your past support requests. 99.0% of answers were still judged correct, against 99.2% before.</p>
+          </div></details></li>
+        <li data-focus="tools"><details><summary><time>06:07</time><span class="what">Sales and Ops pay for two transcription tools that do the same job</span><span class="amt">$180 a month</span></summary>
+          <div class="why"><p>Sales has 12 people on one tool, Ops has 5 on the other. Moving Ops across keeps every recording and drops a subscription.</p></div></details></li>
+      </ol>
+
+      <div class="ask" id="ask">
+        <p class="q">One fix needs your yes: trim the support bot to the last five messages. It saves $6,400 a month.</p>
+        <p class="choose"><button class="btn" id="yes" type="button">Approve</button> <button class="btn ghost" id="no" type="button">Not now</button></p>
+        <p class="reply" id="said-yes" role="status" hidden><svg class="tick" viewBox="0 0 40 30" aria-hidden="true"><path pathLength="1" d="M3 17c4 3 7 6 10 10C19 17 27 8 37 3"/></svg>Thank you. Approved at <time class="now"></time>. I'll apply it, watch the quality for a week and report back each morning.</p>
+        <p class="reply" id="said-no" role="status" hidden>No change made. It stays on my list, and you can approve it from the dashboard whenever you're ready.</p>
+        <p class="redo" hidden><button class="link" id="redo" type="button">Change my answer</button></p>
+      </div>
+    </article>
+
+    <div class="after">
+      <p>Hisaab is Sahkarmi's first worker. Connect your AI bills and usage, and from the next morning you get a note like this one: every dollar traced, every fix tested, nothing changed without you.</p>
+    </div>
   </div>
-
-  <figure class="run card" aria-label="Example daily run by Hisaab, the AI spend auditor">
-    <figcaption class="run-head"><b class="av" style="--c:var(--saffron)">H</b><span><b>Hisaab</b><small>AI spend auditor · daily run</small></span></figcaption>
-    <ol class="log runlog" id="run" aria-live="off"></ol>
-    <p class="run-foot">Example run · try approving the fix</p>
-  </figure>
-</section>
-
-<!-- INTEGRATIONS (decorative strip; the hero line above says the same in words) -->
-<div class="marquee" aria-hidden="true"><div class="track" id="track"></div></div>
-
-<!-- STATS -->
-<section class="stats wrap" aria-label="Why AI projects stall">
-  <p><b>11%</b> of agentic AI use cases reached production last year. <small>Camunda, 2026</small></p>
-  <p><b>2×</b> more often, AI built with a specialist partner succeeds. <small>MIT NANDA, 2025</small></p>
-  <p><b>40%+</b> of agentic AI projects are expected to be cancelled by 2027. <small>Gartner, 2025</small></p>
-</section>
-
-<!-- FIRST PRODUCT -->
-<section class="section wrap" id="hisaab">
-  <p class="tag">Our first worker</p>
-  <h2>Hisaab finds where your AI money goes, and proves every fix.</h2>
-  <p class="lede">Hisaab (हिसाब, "the accounts") reads your AI usage and spend every day, attributes every dollar to a team or project, finds waste and works out why each spike happened. Before recommending any fix, it tests that fix on your own past requests to prove quality holds. You approve every change.</p>
-  <ol class="steps" id="loop"></ol>
-  <p class="note"><a href="#contact" data-enquiry="hisaab">Get early access to Hisaab →</a></p>
-</section>
-
-<!-- TEAM -->
-<section class="section wrap" id="team">
-  <p class="tag">The team</p>
-  <h2>Workers that run your back office.</h2>
-  <p class="lede">Each one runs a job on schedule, investigates what is wrong and asks before it acts. Hisaab is our first. The others show the kind of daily jobs we build.</p>
-  <div class="chips" id="teamFilter" role="group" aria-label="Filter workers by department"></div>
-  <div class="badges" id="badges"></div>
-  <p class="note">Need someone else on the team? We build custom workers too. <a href="#contact">Describe the job →</a></p>
 </section>
 
 <!-- CONTROL -->
-<section class="section band" id="control">
-  <div class="wrap">
-    <p class="tag">You stay in control</p>
-    <h2>You decide how much it does alone.</h2>
-    <p class="lede">Most clients start at level 1 and move up as the worker earns trust. Here's what each level looks like for Hisaab.</p>
-    <div class="ladder card">
-      <div class="chips" id="levels" role="group" aria-label="Choose an autonomy level"></div>
-      <p class="level-sum" id="levelSum"></p>
-      <ul class="level-list" id="levelList"></ul>
+<section class="wrap split" id="control">
+  <div>
+    <h2>It earns its freedom one step at a time.</h2>
+    <p class="quiet">Most clients start at the first step and move up as it earns trust.</p>
+  </div>
+  <div class="levels panel">
+    <div class="track" role="group" aria-label="How much Hisaab does alone" style="--i:1">
+      <button type="button" aria-pressed="false">It reports</button><button type="button" aria-pressed="true">It proposes tested fixes</button><button type="button" aria-pressed="false">It acts within limits</button>
     </div>
+    <div class="level" hidden><p><b>Hisaab</b> runs the audit every morning and explains each finding with the dollars at stake.</p><p><b>You</b> decide what changes, and make the change.</p></div>
+    <div class="level"><p><b>Hisaab</b> tests every fix on your own past requests, then applies the ones you approve and tracks the saving.</p><p><b>You</b> approve or decline each fix, as you just did above.</p></div>
+    <div class="level" hidden><p><b>Hisaab</b> removes idle seats and caps runaway agents on its own, and still asks before it touches a prompt or a model.</p><p><b>You</b> read a weekly summary of everything it did.</p></div>
   </div>
 </section>
 
-<!-- PROCESS -->
-<section class="section wrap" id="process">
-  <p class="tag">How it works</p>
-  <h2>Hired like a person. Checked like software.</h2>
-  <ol class="steps">
-    <li class="card"><small>Week 1 · Pilot</small><h3>Write the job description</h3><p>We sit with the people who do the job today, map it step by step and agree on targets.</p></li>
-    <li class="card"><small>Weeks 2–3 · Pilot</small><h3>Set it up</h3><p>We start from the worker's template and connect it to your tools. Nothing changes in your systems yet.</p></li>
-    <li class="card"><small>Weeks 3–4 · Pilot</small><h3>Trial on your past cases</h3><p>It handles hundreds of real past cases. You read the report and decide whether it goes live.</p></li>
-    <li class="card card-hot"><small>Ongoing · Monthly</small><h3>On the job</h3><p>It goes live within your limits. We watch it, fix issues and re-test before every change.</p></li>
+<!-- WORKERS -->
+<section class="wrap" id="workers">
+  <h2>More colleagues, same habits.</h2>
+  <p class="intro">Each one runs a daily job in your back office, investigates what's wrong, and leaves you a note like Hisaab's. Here is how each would start its morning.</p>
+  <ul class="tiles">
+    <li><h3>Tula</h3><p class="means"><span lang="hi">तुला</span> means balance</p><p>“412 invoices matched overnight. Six didn't, and two of those are GST mismatches to fix before Friday's filing.”</p></li>
+    <li><h3>Nidhi</h3><p class="means"><span lang="hi">निधि</span> means treasure</p><p>“₹18.4 lakh came in yesterday. Three clients are past 45 days; I've drafted reminders for you to approve.”</p></li>
+    <li><h3>Lekha</h3><p class="means"><span lang="hi">लेखा</span> means record</p><p>“86 KYC files processed. Four have a PAN that doesn't match the name on record.”</p></li>
+    <li><h3>Smriti</h3><p class="means"><span lang="hi">स्मृति</span> means memory</p><p>“Your CRM contract renews itself in 41 days. You use 60% of the seats you pay for.”</p></li>
+    <li><h3>Prahari</h3><p class="means"><span lang="hi">प्रहरी</span> means sentinel</p><p>“TDS is due in 9 days. Two vendor payments are missing deductions; details attached.”</p></li>
+    <li class="yours"><h3>Your job</h3><p class="means">A worker built around it</p><p>Have a different job in mind? We build custom workers too.</p><a href="#talk">Tell us about it</a></li>
+  </ul>
+</section>
+
+<!-- HOW WE WORK -->
+<section class="wrap" id="how">
+  <h2>Hired like a person, checked like software.</h2>
+  <ol class="timeline">
+    <li><span>Week 1</span><h3>The job description</h3><p>We sit with the people who do the job today, map it step by step and agree what good looks like.</p></li>
+    <li><span>Weeks 2 and 3</span><h3>Set-up</h3><p>We connect the worker to your tools with read-only access. Nothing in your systems changes yet.</p></li>
+    <li><span>Week 4</span><h3>A trial on your past cases</h3><p>It works through hundreds of your real past cases. You read the results and decide whether it goes live.</p></li>
+    <li><span>Then, every day</span><h3>On the job</h3><p>It runs within the limits you set. We watch it, fix what it gets wrong and re-test before every change.</p></li>
   </ol>
-  <p class="note">The pilot is a fixed quote, sent after the first call. Each live worker then has a monthly fee, and for high-volume jobs part of it can be tied to results.</p>
+  <p class="quiet">The pilot is a fixed price, quoted after our first call. Each live worker then has a monthly fee.</p>
 </section>
 
-<!-- TECHNOLOGY -->
-<section class="section wrap" id="stack">
-  <p class="tag">Technology</p>
-  <h2>What we build your worker with.</h2>
-  <p class="lede">Proven building blocks that can be swapped out. Nothing is locked to one vendor, so your worker improves as the technology does.</p>
-  <ol class="stack" id="stackList"></ol>
-</section>
-
-<!-- TIMESHEET -->
-<section class="section band" id="timesheet">
-  <div class="wrap">
-    <p class="tag">The timesheet</p>
-    <h2>Every worker reports its day to you.</h2>
-    <p class="lede">Every client gets a dashboard showing results, every action, and test scores from before any change goes live. The numbers below are examples.</p>
-    <div class="sheet card">
-      <div class="chips" id="sheetTabs" role="group" aria-label="Choose an example worker"></div>
-      <div class="kpis" id="kpis"></div>
-      <div class="sheet-grid">
-        <div class="panel"><h3>Last 14 days</h3><svg id="chart" viewBox="0 0 640 220" role="img" aria-label="Daily tasks: done by the worker versus sent to you for approval"></svg><p class="legend"><span><i></i>Done by worker</span><span><i class="hand"></i>Sent to you for approval</span></p></div>
-        <div class="panel"><h3>Activity log</h3><ul class="log" id="log"></ul></div>
-      </div>
-    </div>
+<!-- BUILT WITH -->
+<section class="wrap split" id="built">
+  <div>
+    <h2>What's underneath.</h2>
+    <p class="intro">Your worker connects to whatever your team already uses: if it has an API, an inbox or a login screen, the worker can use it. Inside, it's built from proven parts that can be swapped as better ones arrive.</p>
+    <dl class="layers">
+      <div><dt>Safety</dt><dd>Step-by-step traces, audit logs, encryption and least-privilege access. AI providers are used only on terms that don't train on your data.</dd></div>
+      <div><dt>Testing</dt><dd>Test sets built from your past cases, run before launch, after every change and before any model upgrade.</dd></div>
+      <div><dt>Workflows</dt><dd>Multi-step jobs that schedule, retry, wait for approval and hand over to a person.</dd></div>
+      <div><dt>Knowledge</dt><dd>Search over your own documents and records, with OCR for scans and PDFs.</dd></div>
+      <div><dt>Connections</dt><dd>MCP, REST APIs and webhooks, billing and usage APIs, email, and browser automation for tools without an API.</dd></div>
+      <div><dt>Models</dt><dd>Claude, GPT, Gemini or open-source models, picked step by step on your test results.</dd></div>
+    </dl>
   </div>
+  <div class="stack" aria-hidden="true"><i>Safety</i><i>Testing</i><i>Workflows</i><i>Knowledge</i><i>Connections</i><i>Models</i></div>
 </section>
 
-<!-- TRUST -->
-<section class="section wrap">
-  <p class="tag">Reliability</p>
-  <h2>Built for day 100, not just the demo.</h2>
-  <div class="grid4">
-    <div class="card"><h3>Tested on your cases</h3><p>Every worker must pass a test set built from your past work, before launch and after every change. Every mistake becomes a new test.</p></div>
-    <div class="card"><h3>Model upgrades on evidence</h3><p>New AI models run on your cases first. Your worker only switches if the results hold up or improve.</p></div>
-    <div class="card"><h3>Full audit trail</h3><p>Every message sent and every record changed is logged, so you can always see what happened and why.</p></div>
-    <div class="card"><h3>Your data stays yours</h3><p>We use AI providers only on business terms that don't train on your data. Each worker gets only the access it needs, and our setup is designed with India's DPDP Act in mind.</p></div>
-  </div>
-</section>
-
-<!-- FIT -->
-<section class="section wrap">
-  <p class="tag">Is your job a good fit?</p>
-  <h2>Not every job should go to an AI worker.</h2>
-  <div class="grid2">
-    <div class="card fit"><h3>✓ A good fit</h3><ul><li>It happens many times a week</li><li>It follows rules your team could write down</li><li>It lives in tools we can connect</li><li>You have past examples we can test on</li></ul></div>
-    <div class="card fit fit-no"><h3>✕ Not a fit yet</h3><ul><li>Every case needs a senior person's judgement</li><li>It comes up only a few times a month</li><li>There are no past records to test against</li><li>It would have to approve payments or legal decisions on its own</li></ul></div>
-  </div>
-</section>
-
-<!-- ENGINEERING -->
-<section class="section ink" id="engineering">
-  <div class="wrap">
-    <p class="tag">For teams building AI</p>
-    <h2>Building your own agents? We help get them into production.</h2>
-    <div class="grid4">
-      <div><h3>Production builds</h3><p>From a scoped use case to an agent handling real traffic, with retries, handover and audit logs designed in.</p></div>
-      <div><h3>Evaluation suites</h3><p>Test sets built from real cases, scored for accuracy, tone, policy and handover, and run on every change.</p></div>
-      <div><h3>Model upgrade testing</h3><p>Current and candidate models compared on your cases for quality, cost and latency.</p></div>
-      <div><h3>Pilot rescue</h3><p>For pilots that stalled after the demo. We find where they fail and rebuild the weak parts.</p></div>
-    </div>
-    <a class="btn" href="#contact" data-enquiry="engineering">Talk to an engineer</a>
+<!-- QUESTIONS -->
+<section class="wrap split" id="faq">
+  <h2>Questions people ask.</h2>
+  <div class="faq">
+    <details><summary>Why not just use ChatGPT or Claude ourselves?</summary><p>For one-off tasks, you should. A worker runs every day without being asked, inside your systems and by your rules, and it is tested and monitored. Setting that up and keeping it working is our job.</p></details>
+    <details><summary>What if it gets something wrong?</summary><p>Anything risky waits for your approval, and every action is logged. We fix the cause, add the case to the worker's tests and re-test before the fix goes live.</p></details>
+    <details><summary>Does it replace our team?</summary><p>No. It takes the repetitive part of the job off their plate and hands them the cases that need a person, with the context attached.</p></details>
+    <details><summary>Do we need technical staff?</summary><p>No. We need a few hours from someone who knows the job well, in the first week and during the trial.</p></details>
+    <details><summary>We're building our own agents. Can you help?</summary><p>Yes. We build test suites from your real cases, compare models on quality, cost and speed, and rescue pilots that stalled after the demo.</p></details>
+    <details><summary>Do you work outside India?</summary><p>Yes, with teams anywhere, remotely.</p></details>
   </div>
 </section>
 
 <!-- ABOUT -->
-<section class="section wrap" id="about">
-  <div class="founder card">
-    <b class="av av-lg" style="--c:var(--mint)">NT</b>
-    <div>
-      <p class="tag">About Sahkarmi</p>
-      <h2>You work with the founder, not an account manager.</h2>
-      <p>Hi, I'm Naivedya Tiwari, founder and CEO of Sahkarmi. I build products, and my work has always focused on the gap between what a product promises and what people actually experience.</p>
-      <p>AI workers have the same gap. They look great in a demo and then fall apart on real inputs. I started Sahkarmi to close it. Every worker is tested on your own cases, and I hold each one to a simple standard: would I trust it with my own business? You talk to me directly, from the first call through every monthly review.</p>
-      <a class="link" id="linkedin" href="#" target="_blank" rel="noopener" hidden>LinkedIn ↗</a>
-    </div>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section class="section wrap narrow" id="faq">
-  <p class="tag">FAQ</p>
-  <h2>Questions owners ask us.</h2>
-  <div class="faq">
-    <details><summary>Why not just use ChatGPT or Claude ourselves?</summary><p>For one-off tasks, you should. A worker runs every day without being asked, works inside your systems, follows your rules, hands over to people when it should, and is tested and monitored. Setting that up and keeping it working is our job.</p></details>
-    <details><summary>What if the worker makes a mistake?</summary><p>Risky actions need your approval. Any mistake shows up on the timesheet. We fix the cause, add the case to the worker's tests and re-test before the fix goes live.</p></details>
-    <details><summary>What does it cost?</summary><p>A fixed price for the pilot, quoted after the first call, then a monthly fee for each live worker. For high-volume jobs, part of the fee can be tied to results.</p></details>
-    <details><summary>How long until we see results?</summary><p>About four weeks to a worker tested on your own cases. Lead replies show the difference within days of going live. Collections take a full payment cycle to measure.</p></details>
-    <details><summary>Does it replace our team?</summary><p>No. It takes the repetitive part of the job off their plate and hands them the cases that need a person, with the full context attached.</p></details>
-    <details><summary>What if the pilot shows it won't work?</summary><p>You'll know before anything goes live, because the trial runs on your past cases. You keep the test report, which shows exactly where the job is hard to automate.</p></details>
-    <details><summary>Do we need technical staff?</summary><p>No. We need a few hours from someone who knows the job well, during the first week and during testing.</p></details>
-    <details><summary>Which AI models do you use?</summary><p>Whichever performs best on your tests, usually from Anthropic or OpenAI, under business terms. Because every worker is tested, we can change the model without changing how it behaves for you.</p></details>
-    <details><summary>Do you work outside India?</summary><p>Yes. We work remotely with teams anywhere.</p></details>
+<section class="wrap split" id="about">
+  <p class="word" aria-hidden="true">Sahkarmi<small><span lang="hi">सहकर्मी</span> means a colleague: someone who works beside you</small></p>
+  <div>
+    <h2>You work with the founder.</h2>
+    <p>We build colleagues, not chatbots.</p>
+    <p>I'm Naivedya Tiwari, founder and CEO. My work has always been about the gap between what a product promises and what people actually get. AI workers have that gap too: they shine in a demo and stumble on real inputs. Every worker we ship is tested on your own cases first, and you talk to me directly, from the first call through every monthly review.</p>
+    <p><a id="linkedin" href="#" target="_blank" rel="noopener" hidden>Naivedya on LinkedIn</a></p>
   </div>
 </section>
 
 <!-- CONTACT -->
-<section class="section band" id="contact">
-  <div class="wrap grid2">
+<section class="wrap" id="talk">
+  <div class="panel contact">
     <div>
-      <p class="tag">Book a call</p>
-      <h2>Which job do you wish someone would just handle?</h2>
-      <ol class="next">
-        <li>We reply within one working day.</li>
-        <li>You speak with Naivedya for 30 minutes about the job and your tools.</li>
-        <li>You get a short proposal and a fixed pilot quote.</li>
-      </ol>
-      <a class="btn btn-alt" id="booking" href="#" target="_blank" rel="noopener" hidden>Pick a time on the calendar ↗</a>
-      <p class="note">Prefer email? <b id="email"></b> <button class="copy" id="copy" type="button">Copy</button></p>
+      <h2>Tell us the job nobody wants to do.</h2>
+      <p>We reply within one working day, then you speak with Naivedya for 30 minutes and get a short proposal with a fixed pilot price.</p>
+      <p class="quiet">Prefer email? Write to <a id="email" href="#"></a>. <a id="booking" href="#" target="_blank" rel="noopener" hidden>Or pick a time on the calendar.</a></p>
     </div>
-
-    <form class="form card" id="form">
+    <form class="form" id="form">
       <input class="hp" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
       <label>Your name<input name="name" autocomplete="name" required minlength="2"></label>
       <label>Company<input name="company" autocomplete="organization" required minlength="2"></label>
       <label>Work email<input name="email" type="email" autocomplete="email" required></label>
-      <label>Phone or WhatsApp <small>optional</small><input name="phone" type="tel" autocomplete="tel"></label>
+      <label>Phone or WhatsApp (optional)<input name="phone" type="tel" autocomplete="tel"></label>
       <label class="full">What are you looking for?
-        <select name="track" id="track">
-          <option value="worker">An AI worker for a job in my business</option>
-          <option value="hisaab">Hisaab: audit our AI spend</option>
-          <option value="engineering">Help building or testing our own AI agents</option>
-          <option value="unsure">Not sure yet</option>
+        <select name="track">
+          <option>Hisaab: audit our AI spend</option>
+          <option>An AI worker for another job</option>
+          <option>Help with our own AI agents</option>
+          <option>Not sure yet</option>
         </select>
       </label>
-      <label class="full">Describe the job<textarea name="message" rows="4" required minlength="10" placeholder="For example: we get about 200 leads a month from Meta ads and IndiaMART, and it takes our team a day or more to reply."></textarea></label>
-      <button class="btn full" type="submit">Send enquiry</button>
-      <p class="status full" id="status" role="status"></p>
+      <label class="full">Describe the job<textarea name="message" rows="4" required minlength="10"></textarea></label>
+      <p class="full"><button class="btn magnet" type="submit">Send</button></p>
+      <p class="full quiet" id="status" role="status"></p>
     </form>
   </div>
 </section>
-
 </main>
 
-<footer class="footer wrap">
-  <p><b>Sahkarmi</b> · AI workers, built and managed for you. Founded by Naivedya Tiwari.</p>
-  <p>© <span id="year"></span> Sahkarmi · Sources: <a href="https://www.thisandthat.chat/blog/ai-agent-adoption-statistics/" target="_blank" rel="noopener">Camunda</a>, <a href="https://fortune.com/2025/08/18/mit-report-95-percent-generative-ai-pilots-at-companies-failing-cfo" target="_blank" rel="noopener">MIT NANDA</a>, <a href="https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027" target="_blank" rel="noopener">Gartner</a></p>
+<footer class="wrap foot">
+  <nav aria-label="Footer"><a href="#hisaab">Hisaab</a><a href="#workers">Workers</a><a href="#how">How we work</a><a href="#about">About</a><a href="#talk">Contact</a></nav>
+  <p>Sahkarmi. AI workers, built and run for you. © <span id="year"></span></p>
 </footer>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js"></script>
 <script src="assets/main.js"></script>
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/" } }</script>
+<script type="module" src="assets/flow.js"></script>
 </body>
 </html>

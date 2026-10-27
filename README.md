@@ -3,9 +3,10 @@
 A static website: plain HTML, CSS and JavaScript. No build step, no server code.
 
 ```
-index.html          the page
-assets/styles.css   all styling (colors and fonts are at the top)
-assets/main.js      settings, page content data and interactions
+index.html          the page and all its words
+assets/styles.css   all styling; colours and fonts are the tokens at the top
+assets/main.js      settings (SITE), interactions and scroll motion (GSAP from cdnjs)
+assets/flow.js      the 3D flow of spend behind the note (three.js from jsDelivr)
 assets/favicon.svg  browser tab icon
 ```
 
@@ -29,7 +30,7 @@ Cloudflare Pages, Netlify and Vercel can deploy straight from this private GitHu
 
 ## Editing
 
-- Page text: `index.html`. Each section is marked with a comment like `<!-- TEAM -->`.
-- Colors and fonts: the tokens at the top of `assets/styles.css`. The dark theme is the single `[data-theme="dark"]` line below them.
-- Workers, Hisaab's steps, integrations strip, technology stack, hero run log, autonomy levels and timesheet numbers: the `TEAM`, `LOOP`, `TOOLS`, `STACK`, `RUN`, `LEVELS` and `SHEET` lists at the top of `assets/main.js`. The page renders from these. Timesheet figures are labelled on the page as example data.
-- Worker names should mean something tied to the job (Hisaab = the accounts, Nidhi = treasure, and so on), and each badge shows that meaning.
+- Words: edit `index.html` directly. Each section starts with a comment like `<!-- WORKERS -->`.
+- Colours and fonts: the tokens at the top of `assets/styles.css`; the dark theme redefines the same names right below.
+- The morning note's figures are example data; keep them consistent (daily waste = monthly savings ÷ 30).
+- Worker names must mean something tied to the job (Hisaab = the accounts, Tula = balance, and so on).
