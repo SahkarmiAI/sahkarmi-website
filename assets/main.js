@@ -21,8 +21,10 @@ theme.onclick = () => {
   tell('theme');
 };
 
-// The note is always dated today
-$('#today').textContent = new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' });
+// The note is written at 06:10 each day; before that, yesterday's note is the latest
+const day = new Date();
+if (day.getHours() * 60 + day.getMinutes() < 6 * 60 + 10) day.setDate(day.getDate() - 1);
+$('#today').textContent = day.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' });
 
 // Pointing at a finding lights up its stream in the flow
 $$('.finds li').forEach(li => ['pointerenter', 'focusin'].forEach(ev => li.addEventListener(ev, () => tell('spot', li.dataset.focus))));
