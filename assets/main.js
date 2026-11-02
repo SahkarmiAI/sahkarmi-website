@@ -80,7 +80,9 @@ const reveal = () => document.documentElement.classList.remove('intro');
 setTimeout(reveal, 2500); // never leave the hero hidden if fonts or scripts are slow
 if (window.gsap) {
   gsap.registerPlugin(ScrollTrigger, SplitText);
+  new ResizeObserver(() => ScrollTrigger.refresh()).observe(document.body); // late fonts, answers and level switches change the page height
   const fine = matchMedia('(pointer: fine)').matches;
+  const wide = () => innerWidth > 960; // the stack sits beside the text (and sticks) above this width
   gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
     // One orchestrated entrance: the note's headline rises line by line
     Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 600))]).then(() => { // don't hold the headline for slow fonts
@@ -92,7 +94,10 @@ if (window.gsap) {
     });
     gsap.to('.progress', { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: .3 } });
     gsap.fromTo('.timeline', { '--p': 0 }, { '--p': 1, ease: 'none', scrollTrigger: { trigger: '.timeline', start: 'top 80%', end: 'bottom 50%', scrub: .6 } });
-    gsap.fromTo('.stack', { '--spread': 0 }, { '--spread': 1, ease: 'none', scrollTrigger: { trigger: '#built', start: 'top 75%', end: 'center 50%', scrub: .8 } });
+    // The stack opens only once it's fully on screen, and is fully open before it leaves. Wide: done 200px before
+    // it unsticks (at 640px = 6rem top + 34rem tall), so it holds open. Narrow: it's the section's end, done mid-screen.
+    gsap.fromTo('.stack', { '--spread': 0 }, { '--spread': 1, ease: 'none', scrollTrigger: { trigger: '.stack', start: 'bottom bottom',
+      endTrigger: '#built', end: () => wide() ? 'bottom 840px' : 'bottom 55%', scrub: .4 } });
     if (!fine) return;
     // Tiles tilt toward the pointer; the two main buttons lean in (kept to two, per the motion guide)
     $$('.tiles li').forEach(li => {
