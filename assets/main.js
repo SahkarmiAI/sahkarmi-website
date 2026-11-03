@@ -1,7 +1,7 @@
 /* Site settings: fill these in before going live. Empty links stay hidden. */
 const SITE = {
   contactEmail: 'ai@sahkarmi.ai',
-  formEndpoint: '',    // e.g. 'https://formspree.io/f/abcdwxyz'. Empty = the form points people to the email instead.
+  formEndpoint: '',    // the Google Apps Script web app URL ('https://script.google.com/macros/s/…/exec'); see README. Empty = the form points people to the email instead.
   bookingUrl: '',      // calendar booking page
   founderLinkedIn: ''
 };
@@ -136,8 +136,9 @@ $('#form').onsubmit = async e => {
   send.disabled = true;
   status.textContent = 'Sending…';
   try {
-    const res = await fetch(SITE.formEndpoint, { method: 'POST', headers: { Accept: 'application/json' }, body: new FormData(e.target) });
-    if (!res.ok) throw 0;
+    // URL-encoded keeps it a "simple" cross-site request, which Apps Script accepts (no CORS preflight)
+    const res = await fetch(SITE.formEndpoint, { method: 'POST', headers: { Accept: 'application/json' }, body: new URLSearchParams(new FormData(e.target)) });
+    if (!(await res.json()).ok) throw 0;
     e.target.reset();
     status.textContent = "Thank you. We'll reply within one working day.";
   } catch {
