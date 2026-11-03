@@ -9,6 +9,7 @@ const SITE = {
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
 const time = d => d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
 const tell = (name, detail) => document.dispatchEvent(new CustomEvent(name, { detail })); // flow.js listens
+const remeasure = () => window.ScrollTrigger?.refresh(true); // the page height changed: re-measure scroll effects once scrolling settles
 
 // Theme toggle (the saved choice is applied in <head> before paint)
 const theme = $('#theme'), isDark = () => document.documentElement.dataset.theme === 'dark';
@@ -41,6 +42,7 @@ const answer = yes => {
   if (yes) $('#said-yes .now').textContent = time(new Date());
   if (yes !== null) $('#redo').focus(); // the pressed button is gone; keep keyboard users in place
   tell('approved', yes === true);
+  remeasure();
 };
 $('#yes').onclick = () => answer(true);
 $('#no').onclick = () => answer(false);
@@ -52,6 +54,7 @@ stops.forEach((b, i) => b.onclick = () => {
   $('.track').style.setProperty('--i', i);
   stops.forEach((s, k) => s.setAttribute('aria-pressed', k === i));
   levels.forEach((l, k) => l.hidden = k !== i);
+  remeasure();
 });
 
 // Worker tiles: a soft light follows the pointer
@@ -75,12 +78,22 @@ $('#email').href = `mailto:${SITE.contactEmail}`;
 [['#booking', SITE.bookingUrl], ['#linkedin', SITE.founderLinkedIn]].forEach(([s, url]) => { if (url) { $(s).href = url; $(s).hidden = false; } });
 $('#year').textContent = new Date().getFullYear();
 
+// In-page links glide (in JS, not CSS scroll-behavior, which breaks ScrollTrigger's measuring and reload position)
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[href^="#"]:not([href="#"])'), to = a && $(a.hash);
+  if (!to) return;
+  e.preventDefault();
+  to.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+  history.pushState(null, '', a.hash);
+});
+
 // Motion (GSAP). Everything is readable without it; reduced-motion users get the final state.
 const reveal = () => document.documentElement.classList.remove('intro');
 setTimeout(reveal, 2500); // never leave the hero hidden if fonts or scripts are slow
 if (window.gsap) {
   gsap.registerPlugin(ScrollTrigger, SplitText);
-  new ResizeObserver(() => ScrollTrigger.refresh()).observe(document.body); // late fonts, answers and level switches change the page height
+  document.fonts.addEventListener('loadingdone', remeasure); // fonts arrive late and reflow the page
+  document.addEventListener('toggle', () => setTimeout(remeasure, 400), true); // a finding or question opened or closed (it animates for .35s)
   const fine = matchMedia('(pointer: fine)').matches;
   const wide = () => innerWidth > 960; // the stack sits beside the text (and sticks) above this width
   gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
@@ -94,10 +107,12 @@ if (window.gsap) {
     });
     gsap.to('.progress', { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: .3 } });
     gsap.fromTo('.timeline', { '--p': 0 }, { '--p': 1, ease: 'none', scrollTrigger: { trigger: '.timeline', start: 'top 80%', end: 'bottom 50%', scrub: .6 } });
-    // The stack opens only once it's fully on screen, and is fully open before it leaves. Wide: done 200px before
-    // it unsticks (at 640px = 6rem top + 34rem tall), so it holds open. Narrow: it's the section's end, done mid-screen.
-    gsap.fromTo('.stack', { '--spread': 0 }, { '--spread': 1, ease: 'none', scrollTrigger: { trigger: '.stack', start: 'bottom bottom',
-      endTrigger: '#built', end: () => wide() ? 'bottom 840px' : 'bottom 55%', scrub: .4 } });
+    // The stack opens only once it's fully on screen, and is fully open before it leaves. Wide: it tops the section and is
+    // done 200px before it unsticks (at 640px = 6rem top + 34rem tall), so it holds open. Narrow: it ends the section, done mid-screen.
+    // Measured from #built rather than the stack, whose position changes while it sticks.
+    const built = $('#built'), stackEnd = () => parseFloat(getComputedStyle(built).paddingTop) + $('.stack').offsetHeight;
+    gsap.fromTo('.stack', { '--spread': 0 }, { '--spread': 1, ease: 'none', scrollTrigger: { trigger: built,
+      start: () => wide() ? `top+=${stackEnd()} bottom` : 'bottom bottom', end: () => wide() ? 'bottom 840px' : 'bottom 55%', scrub: .4 } });
     if (!fine) return;
     // Tiles tilt toward the pointer; the two main buttons lean in (kept to two, per the motion guide)
     $$('.tiles li').forEach(li => {

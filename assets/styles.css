@@ -16,7 +16,7 @@
 
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
-html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+html { scroll-padding-top: 5rem; } /* smooth link scrolling is in main.js: CSS smooth scrolling breaks ScrollTrigger's measuring */
 body { margin: 0; color: var(--ink); font: 300 1.125rem/1.65 var(--font); font-variant-numeric: tabular-nums; -webkit-font-smoothing: antialiased;
   background: radial-gradient(1100px 700px at 75% -10%, var(--sheen), transparent 60%) no-repeat, var(--bg); }
 h1, h2, h3 { font-weight: 300; margin: 0 0 .5em; text-wrap: balance; }
@@ -203,7 +203,6 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--b
   .form { grid-template-columns: 1fr; }
 }
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .tick { stroke-dashoffset: 0; }
 }
