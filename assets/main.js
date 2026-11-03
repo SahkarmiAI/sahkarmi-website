@@ -1,7 +1,7 @@
 /* Site settings: fill these in before going live. Empty links stay hidden. */
 const SITE = {
   contactEmail: 'ai@sahkarmi.ai',
-  formEndpoint: '',    // the Google Apps Script web app URL ('https://script.google.com/macros/s/…/exec'); see README. Empty = the form points people to the email instead.
+  formEndpoint: 'https://script.google.com/macros/s/AKfycbxk5FLjhs2GxeU6H1pHWdveUXPXt8BvPi7oVV7RxauWxfAQihfprSsI3z-4RI1vq0zAaA/exec', // Google Apps Script web app (apps-script/contact.gs); see README. Empty = the form points people to the email instead.
   bookingUrl: '',      // calendar booking page
   founderLinkedIn: ''
 };
